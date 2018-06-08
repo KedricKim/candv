@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Current & Velocity</title>
+    <title>Current & Velocity랄랄라</title>
   </head>
   <body bgcolor="ivory">
     <!-- 전체 -->
