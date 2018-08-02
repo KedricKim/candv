@@ -1,0 +1,52 @@
+html,body { height: 100%; margin: 0; }
+.wrap{
+    min-height: 100%;
+    position: relative;
+}
+.wrap_top{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    background-color: ivory;
+}
+.wrap_middle{
+    padding-top:140px;
+    top:0;
+    left: 0;
+    right: 0;
+}
+.wrap_bottom{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    right: 0;
+}
+.wtButton{
+    margin-left:20px;
+}
+.topFixed {
+    position: fixed;
+    top: 0px;
+}
+.btnBottom{
+    margin-left:20px;
+}
+A:link
+{
+    COLOR: #666666;
+    FONT-FAMILY: 굴림;
+    TEXT-DECORATION: none
+}
+A:visited
+{
+    COLOR: #666666;
+    FONT-FAMILY: 굴림;
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    COLOR: #666666;
+    FONT-FAMILY: 굴림;
+    TEXT-DECORATION: underline
+}
