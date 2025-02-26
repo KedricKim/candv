@@ -1,0 +1,8 @@
+table.mailform tr th,
+table.mailform tr td {
+  text-align: left;
+  font-weight: normal;
+  font-size: 12px;
+  border-bottom: solid 1px #999999;
+  padding: 7px 5px 7px 5px;
+}
