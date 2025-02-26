@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const Header = () => {
   return (
     <header className="header">
-      <h1>C&V</h1>
+      <img src="logo.png" />
       <div>
         <div className="address">
           경기도 성남시 분당구 구미동 165 분당 포스빌 523호<br></br>

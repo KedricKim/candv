@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/estimate" element={<Estimate />} />
         </Routes>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
