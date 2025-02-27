@@ -9,7 +9,9 @@ const Header = () => {
       <div>
         <div className="address">
           경기도 성남시 분당구 구미동 165 분당 포스빌 523호<br></br>
-          전화 : 031 - 782 - 9165/6 <br></br>팩스 : 031 - 782 - 9167
+          <small>전화 : 031 - 782 - 9165/6 팩스 : 031 - 782 - 9167</small>
+          <br></br>
+          <small>E-mail : thkim@candv.com</small>
         </div>
         <nav>
           <ul>

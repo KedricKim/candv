@@ -26,6 +26,11 @@ const Home = () => {
             </td>
           </tr>
           <tr>
+            <td colspan="3">
+              <hr></hr>
+            </td>
+          </tr>
+          <tr>
             <td>
               <div>
                 <form
@@ -169,6 +174,7 @@ const Home = () => {
                         <th></th>
                         <td>
                           <input type="submit" value="견적문의" />
+                          &nbsp;&nbsp;
                           <input type="reset" name="reset" value="다시쓰기" />
                         </td>
                       </tr>

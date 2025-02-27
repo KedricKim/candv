@@ -1,6 +1,5 @@
 import React from "react";
 import "./Product.css";
-import ProductDetail from "./ProductDetail.js";
 import { Link } from "react-router";
 
 const Home = () => {
