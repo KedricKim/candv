@@ -1,0 +1,13 @@
+.productDetail table {
+  justify-self: center;
+}
+
+.productDetail {
+  a {
+    text-decoration-line: none;
+    color: inherit;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}

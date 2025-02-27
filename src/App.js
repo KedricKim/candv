@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Product from "./pages/Product";
 import Estimate from "./pages/Estimate";
 import "./App.css";
+import ProductDetail from "./pages/ProductDetail";
 
 const App = () => {
   return (
@@ -17,10 +18,11 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/product/detail" element={<ProductDetail />} />
           <Route path="/estimate" element={<Estimate />} />
         </Routes>
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

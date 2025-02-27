@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div>
+    <div className="about">
       <table border="0" width="40%" style={{ justifySelf: "center" }}>
         <tbody>
           <tr>
@@ -28,7 +28,7 @@ const About = () => {
             <td>로고</td>
             <td>
               <img
-                src="image/2016kenek_s.png"
+                src="/logo.png"
                 alt="C&V"
                 width="250"
                 height="94"

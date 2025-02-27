@@ -3,7 +3,7 @@ import "./Estimate.css";
 
 const Home = () => {
   return (
-    <div>
+    <div className="estimate">
       <table border="0" width="40%" style={{ justifySelf: "center" }}>
         <tbody>
           <tr>

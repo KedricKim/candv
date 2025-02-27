@@ -4,7 +4,7 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>Footer</p>
+      <p>Copyright (c) 2006 C & V Corporation All Rights Reserved</p>
     </footer>
   );
 };
