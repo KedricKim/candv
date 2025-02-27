@@ -7,7 +7,7 @@ const About = () => {
         <tbody>
           <tr>
             <th colspan="3" bgcolor="#0000ff">
-              <font color="#ffffff">회사소개</font>
+              <font color="#ffffff">회사 소개</font>
             </th>
           </tr>
           <tr>

@@ -32,4 +32,11 @@
       font-weight: bold;
     }
   }
+  a {
+    text-decoration-line: none;
+    li:hover {
+      color: blue;
+      background: linear-gradient(#9198e5, white);
+    }
+  }
 }
