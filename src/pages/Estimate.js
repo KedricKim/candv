@@ -1,18 +1,64 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Estimate.css";
+import emailjs from "@emailjs/browser";
 
-const Home = () => {
+const Estimate = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    let name = form.current.from_name.value.replaceAll(" ", "");
+    let phone = form.current.phone.value.replaceAll(" ", "");
+    let email = form.current.email.value.replaceAll(" ", "");
+    let message = form.current.message.value.replaceAll(" ", "");
+
+    if (name.length < 1) {
+      alert("담당자명을 입력해주세요.");
+      form.current.from_name.focus();
+    } else if (phone.length < 1) {
+      alert("전화번호를 입력해주세요.");
+      form.current.phone.focus();
+    } else if (email.length < 1) {
+      alert("이메일을 입력해주세요.");
+      form.current.email.focus();
+    } else if (message.length < 1) {
+      alert("문의 내용을 입력해주세요.");
+      form.current.message.focus();
+    } else {
+      emailjs
+        .sendForm(
+          "service_574i0y8",
+          "template_022h1ek",
+          form.current,
+          "7JOEcnt5thCGv_WUp"
+        )
+        .then(
+          (result) => {
+            alert(
+              "문의주신 내용이 접수되었습니다. 빠른시일 내에 연락드리도록 하겠습니다."
+            );
+            document.getElementById("reset").click();
+          },
+          (error) => {
+            alert("문의 접수에 실패하였습니다.");
+            console.log(error.text);
+          }
+        );
+    }
+  };
+
   return (
     <div className="estimate">
       <table border="0" width="40%" style={{ justifySelf: "center" }}>
         <tbody>
           <tr>
-            <th colspan="3" bgcolor="#0000ff">
+            <th colSpan="3" bgcolor="#0000ff">
               <font color="#ffffff">온라인 견적</font>
             </th>
           </tr>
           <tr>
-            <td colspan="3">
+            <td colSpan="3">
               <hr></hr>
             </td>
           </tr>
@@ -26,24 +72,19 @@ const Home = () => {
             </td>
           </tr>
           <tr>
-            <td colspan="3">
+            <td colSpan="3">
               <hr></hr>
             </td>
           </tr>
           <tr>
             <td>
               <div>
-                <form
-                  id="mailform"
-                  method="post"
-                  action="mailform/send.cgi"
-                  onsubmit="return sendmail(this);"
-                >
+                <form ref={form} onSubmit={sendEmail}>
                   <table
                     border="0"
-                    cellspacing="0"
-                    cellpadding="0"
-                    class="mailform"
+                    cellSpacing="0"
+                    cellPadding="0"
+                    className="mailform"
                   >
                     <tbody>
                       <tr>
@@ -55,9 +96,9 @@ const Home = () => {
                         <td>
                           <input
                             type="text"
-                            name="confirm_email(必須)"
+                            name="from_name"
                             size="40"
-                            class="mf"
+                            className="mf"
                             style={{ width: "240px" }}
                           />
                         </td>
@@ -69,7 +110,7 @@ const Home = () => {
                         <td>
                           <input
                             type="text"
-                            name="会社名"
+                            name="brand"
                             size="40"
                             style={{ width: "240px" }}
                           />
@@ -84,7 +125,7 @@ const Home = () => {
                         <td>
                           <input
                             type="text"
-                            name="部署"
+                            name="phone"
                             size="40"
                             style={{ width: "240px" }}
                           />
@@ -99,7 +140,7 @@ const Home = () => {
                         <td>
                           <input
                             type="text"
-                            name="お名前(必須)"
+                            name="email"
                             size="30"
                             style={{ width: "180px" }}
                           />
@@ -112,7 +153,7 @@ const Home = () => {
                         <td>
                           <input
                             type="text"
-                            name="ふりがな(必須)"
+                            name="product"
                             size="30"
                             style={{ width: "180px" }}
                           />
@@ -163,7 +204,7 @@ const Home = () => {
                         </th>
                         <td>
                           <textarea
-                            name="내용"
+                            name="message"
                             rows="10"
                             cols="70"
                             style={{ height: "120px", height: "120px" }}
@@ -175,22 +216,17 @@ const Home = () => {
                         <td>
                           <input type="submit" value="견적문의" />
                           &nbsp;&nbsp;
-                          <input type="reset" name="reset" value="다시쓰기" />
+                          <input
+                            id="reset"
+                            type="reset"
+                            name="reset"
+                            value="다시쓰기"
+                          />
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </form>
-                <link
-                  rel="stylesheet"
-                  href="mailform/mailform.css"
-                  type="text/css"
-                />
-                <script
-                  type="text/javascript"
-                  src="mailform/mailform.js"
-                  charset="utf-8"
-                ></script>
               </div>
             </td>
           </tr>
@@ -200,4 +236,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Estimate;

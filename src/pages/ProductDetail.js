@@ -7,7 +7,7 @@ const ProductDetail = () => {
       <table width="50%">
         <tbody>
           <tr style={{ textAlign: "center" }}>
-            <td colspan="4">
+            <td colSpan="4">
               <img
                 src="/product/VP1000.jpg"
                 alt="VP1000"
@@ -19,40 +19,40 @@ const ProductDetail = () => {
             </td>
           </tr>
           <tr style={{ height: "20px" }}>
-            <td colspan="4"></td>
+            <td colSpan="4"></td>
           </tr>
           <tr style={{ textAlign: "left", fontWeight: "bold" }}>
-            <td colspan="4">
+            <td colSpan="4">
               <img src="/icon_arrow_blue.png" />
               &nbsp;
               <a>제품 설명</a>
             </td>
           </tr>
           <tr style={{ height: "10px" }}>
-            <td colspan="4"></td>
+            <td colSpan="4"></td>
           </tr>
           <tr style={{ textAlign: "left" }}>
-            <td colspan="4">
+            <td colSpan="4">
               직독식으로 측정이 가능하며, 검출기가 각 표시부와 호환성이 있으므로
               다른 표시부에서 바로 사용이 가능하다. 또한, 날짜 기능이 내장되어
               있으며, 소형/경량으로 관리 및 보관이 편리하다.
             </td>
           </tr>
           <tr style={{ height: "20px" }}>
-            <td colspan="4"></td>
+            <td colSpan="4"></td>
           </tr>
           <tr style={{ textAlign: "left", fontWeight: "bold" }}>
-            <td colspan="4">
+            <td colSpan="4">
               <img src="/icon_arrow_blue.png" />
               &nbsp;
               <a>제품 사양</a>
             </td>
           </tr>
           <tr style={{ height: "10px" }}>
-            <td colspan="4"></td>
+            <td colSpan="4"></td>
           </tr>
           <tr style={{ textAlign: "left" }}>
-            <td colspan="4">
+            <td colSpan="4">
               본체：VP1000 <br></br>
               검출기：VPT-200-09PS, VPT-200-18F, VPT2-200-08PS
               <br></br>
@@ -63,24 +63,28 @@ const ProductDetail = () => {
             </td>
           </tr>
           <tr style={{ height: "20px" }}>
-            <td colspan="4"></td>
+            <td colSpan="4"></td>
           </tr>
           <tr style={{ textAlign: "left", fontWeight: "bold" }}>
-            <td colspan="4">
+            <td colSpan="4">
               <img src="/icon_arrow_blue.png" />
               &nbsp;
               <a>카탈로그</a>
             </td>
           </tr>
           <tr style={{ height: "10px" }}>
-            <td colspan="4"></td>
+            <td colSpan="4"></td>
           </tr>
-          &nbsp;&nbsp;&nbsp;
-          <img src="/icon_arrow_blue01.png" width="12px" />
-          &nbsp;
-          <a href="/pdf/VP2400.pdf" target="_blank">
-            VP2400(현장용)
-          </a>
+          <tr>
+            <td colSpan="4">
+              &nbsp;&nbsp;&nbsp;
+              <img src="/icon_arrow_blue01.png" width="12px" />
+              &nbsp;
+              <a href="/pdf/VP2400.pdf" target="_blank">
+                VP2400(현장용)
+              </a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
