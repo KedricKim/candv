@@ -50,6 +50,9 @@ const Header = () => {
             <Link to="/estimate">
               <li>온라인 견적</li>
             </Link>
+            <Link to="/video">
+              <li>참고 영상</li>
+            </Link>
           </ul>
         </nav>
       </div>
