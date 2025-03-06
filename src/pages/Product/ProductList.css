@@ -1,0 +1,22 @@
+.productList table {
+  justify-self: center;
+  tr {
+    text-align: center;
+  }
+}
+.productList {
+  a {
+    text-decoration-line: none;
+    color: blue;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.productList {
+  ul {
+    text-align: left;
+    padding-right: 20px;
+  }
+}

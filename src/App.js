@@ -9,6 +9,7 @@ import Estimate from "./pages/Estimate";
 import "./App.css";
 import ProductDetail from "./pages/ProductDetail";
 import Video from "./pages/Video";
+import ProductList from "./pages/Product/ProductList";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/product/list" element={<ProductList />} />
           <Route
             path="/product/detail/:productName"
             element={<ProductDetail />}
