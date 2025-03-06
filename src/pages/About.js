@@ -63,7 +63,7 @@ const About = () => {
           <tr>
             <td>소재지</td>
             <td colSpan="2">
-              경기도 성남시 분당구 구미동 165 분당 포스빌 523호
+              서울시 은평구 진관동 은평뉴타운 우물골아파트 225동 101호
             </td>
           </tr>
           <tr>
@@ -88,7 +88,7 @@ const About = () => {
               </small>
               <br></br>
               <small>
-                Homepage: www.candv.co.kr <br></br>E-Mail: thkim@candv.co.kr
+                Homepage: www.candv.co.kr <br></br>E-Mail: candvco@naver.com
               </small>
             </td>
           </tr>

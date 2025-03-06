@@ -1,7 +1,10 @@
 import React from "react";
 import "./ProductDetail.css";
+import { useParams } from "react-router";
 
 const ProductDetail = () => {
+  const { productName } = useParams();
+
   return (
     <div className="productDetail">
       <table width="50%">
@@ -9,13 +12,13 @@ const ProductDetail = () => {
           <tr style={{ textAlign: "center" }}>
             <td colSpan="4">
               <img
-                src="/product/VP1000.jpg"
-                alt="VP1000"
+                src={`/product/${productName}.png`}
+                alt={productName}
                 width="350"
                 border="1"
               />
               <br></br>
-              VP1000
+              {productName}
             </td>
           </tr>
           <tr style={{ height: "20px" }}>
@@ -80,8 +83,8 @@ const ProductDetail = () => {
               &nbsp;&nbsp;&nbsp;
               <img src="/icon_arrow_blue01.png" width="12px" />
               &nbsp;
-              <a href="/pdf/VP2400.pdf" target="_blank">
-                VP2400(현장용)
+              <a href={`/pdf/${productName}.pdf`} target="_blank">
+                {productName}
               </a>
             </td>
           </tr>
