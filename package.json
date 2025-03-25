@@ -25,7 +25,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://GitHub아이디.github.io/Repository명/",
+  "homepage": "https://kedrickim.github.io/candv/",
   "eslintConfig": {
     "extends": [
       "react-app",
