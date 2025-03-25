@@ -128,14 +128,14 @@ const ProductMain = () => {
             <li>
               <img src="/icon_arrow_blue01.png" width="12px" />
               &nbsp;
-              <a href="https://www.kenek-co.com/" target="_blank">
-                KENEK Japan
-              </a>
+              <Link to="/video">참고 영상</Link>
             </li>
             <li>
               <img src="/icon_arrow_blue01.png" width="12px" />
               &nbsp;
-              <Link to="/video">참고 영상</Link>
+              <a href="https://www.kenek-co.com/" target="_blank">
+                KENEK Japan
+              </a>
             </li>
             <li>
               <img src="/icon_arrow_blue01.png" width="12px" />

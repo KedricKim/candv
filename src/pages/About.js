@@ -88,7 +88,7 @@ const About = () => {
               </small>
               <br></br>
               <small>
-                Homepage: www.candv.co.kr <br></br>E-Mail: candvco@naver.com
+                Homepage: www.candv.co.kr <br></br>E-mail: candvco@naver.com
               </small>
             </td>
           </tr>
