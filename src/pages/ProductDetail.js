@@ -6,6 +6,9 @@ import { supabase } from "../lib/supabase";
 const ProductDetail = () => {
   const [data, setData] = useState();
 
+  const navigate = useNavigate();
+  const { productName } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       const { data: product, error } = await supabase
@@ -25,8 +28,6 @@ const ProductDetail = () => {
     fetchData();
   }, []);
 
-  const { productName } = useParams();
-  const navigate = useNavigate();
   const detail = `- 검출기의 호환성 : 만일의 Trouble에도 준비된 예비 검출기로 검정 없이 교환하여 바로 사용할 수 있다.(표시부에 의해 검출기의 검정 계수 입력) 또한 용도에 따라 검출기를 교환함으로서 실험실과 현장용으로도 사용할 수 있다.
               - 수평 방향 유속(X.Y축 방향) 2성분 및 수직 유향(Z축)을 포함한 3성분 동시에 측정 가능.
               - 최대 약 12,000 Data(File명, 유속 Data, 평균시간, 시간)을 보존하여 P/C롤 전송할 수 있습니다. 또한 전용 Software에 의해 실시간 측정 Data를 Computer에 전송하여 실시간 처리 할 수 있다.

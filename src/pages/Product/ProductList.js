@@ -54,15 +54,15 @@ const ProductList = () => {
                   </tr>
                   <tr>
                     <td>
-                      <img src="/product/pr02.png" border="1" />
+                      <img src="/product/VM-1001N.png" border="1" width="200" />
                     </td>
                     <td>
                       <ul>
                         <li>
-                          <Link to="/product/detail/VP3000">VM-1001N</Link>
+                          <Link to="/product/detail/VM-1001N">VM-1001N</Link>
                         </li>
                         <li>
-                          <Link to="/product/detail/VP3000">VM-801HN</Link>
+                          <Link to="/product/detail/VM-801HN">VM-801HN</Link>
                         </li>
                         <li>
                           <Link to="/product/detail/VP3000">FM2001H</Link>
@@ -87,7 +87,7 @@ const ProductList = () => {
                   </tr>
                   <tr>
                     <td>
-                      <img src="/product/pr03.png" border="1" />
+                      <img src="/product/VP3000.png" border="1" width="200" />
                     </td>
                     <td>
                       <ul>
@@ -95,10 +95,10 @@ const ProductList = () => {
                           <Link to="/product/detail/VP3000">VP3000</Link>
                         </li>
                         <li>
-                          <Link to="/product/detail/VP3000">VP1200A</Link>
+                          <Link to="/product/detail/VP1200A">VP1200A</Link>
                         </li>
                         <li>
-                          <Link to="/product/detail/VP3000">LP1100</Link>
+                          <Link to="/product/detail/LP1100">LP1100</Link>
                         </li>
                         <li>
                           <Link to="/product/detail/VP3000">VE30</Link>
