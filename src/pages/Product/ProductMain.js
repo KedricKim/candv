@@ -22,19 +22,6 @@ const ProductMain = () => {
           <Link to={`/product/list`}>
             <img
               src="/product/VP1500.png"
-              alt="VP1000"
-              width="320"
-              height="100"
-              border="1"
-            />
-            <br></br>
-            파고계
-          </Link>
-        </td>
-        <td>
-          <Link to={`/product/list`}>
-            <img
-              src="/product/VP1500.png"
               alt="VP1500"
               width="320"
               height="100"
@@ -42,6 +29,19 @@ const ProductMain = () => {
             />
             <br></br>
             유속계
+          </Link>
+        </td>
+        <td>
+          <Link to={`/product/list`}>
+            <img
+              src="/product/VP1500.png"
+              alt="VP1000"
+              width="320"
+              height="100"
+              border="1"
+            />
+            <br></br>
+            파고계
           </Link>
         </td>
       </tr>
