@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ProductDetail.css";
 import { useNavigate, useParams } from "react-router";
+import { supabase } from "../lib/supabase";
 
 const ProductDetail = () => {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: product, error } = await supabase
+        .from("product")
+        .select()
+        .eq("name", productName)
+        .single();
+
+      if (error) {
+        console.error("데이터 가져오기 오류:", error);
+      } else {
+        console.log(product);
+        setData(product); // jsonb 필드 파싱
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const { productName } = useParams();
   const navigate = useNavigate();
-  const data = [
+  const detail = `- 검출기의 호환성 : 만일의 Trouble에도 준비된 예비 검출기로 검정 없이 교환하여 바로 사용할 수 있다.(표시부에 의해 검출기의 검정 계수 입력) 또한 용도에 따라 검출기를 교환함으로서 실험실과 현장용으로도 사용할 수 있다.
+              - 수평 방향 유속(X.Y축 방향) 2성분 및 수직 유향(Z축)을 포함한 3성분 동시에 측정 가능.
+              - 최대 약 12,000 Data(File명, 유속 Data, 평균시간, 시간)을 보존하여 P/C롤 전송할 수 있습니다. 또한 전용 Software에 의해 실시간 측정 Data를 Computer에 전송하여 실시간 처리 할 수 있다.
+              - 1, 5, 10, 20, 40, 60초에 대한 매초마다 평균 유속 표시할 수 있습니다.
+              - 자동 감도 : 유속에 대응한 최적한 감도로 자동적으로 조정하여 항시 고 정도의 측정을 할 수 있다.
+              - 간단한 조작법 : 측정 개시부터 종료까지의 경과를 표시부 및 Buzzer음 으로 표시합니다.`;
+  const description = [
     {
       header: "본체부 #VP3000",
       attributes: {
@@ -94,12 +122,7 @@ const ProductDetail = () => {
                     lineHeight: "1.6",
                   }}
                 >
-                  {`- 검출기의 호환성 : 만일의 Trouble에도 준비된 예비 검출기로 검정 없이 교환하여 바로 사용할 수 있다.(표시부에 의해 검출기의 검정 계수 입력) 또한 용도에 따라 검출기를 교환함으로서 실험실과 현장용으로도 사용할 수 있다.
-              - 수평 방향 유속(X.Y축 방향) 2성분 및 수직 유향(Z축)을 포함한 3성분 동시에 측정 가능.
-              - 최대 약 12,000 Data(File명, 유속 Data, 평균시간, 시간)을 보존하여 P/C롤 전송할 수 있습니다. 또한 전용 Software에 의해 실시간 측정 Data를 Computer에 전송하여 실시간 처리 할 수 있다.
-              - 1, 5, 10, 20, 40, 60초에 대한 매초마다 평균 유속 표시할 수 있습니다.
-              - 자동 감도 : 유속에 대응한 최적한 감도로 자동적으로 조정하여 항시 고 정도의 측정을 할 수 있다.
-              - 간단한 조작법 : 측정 개시부터 종료까지의 경과를 표시부 및 Buzzer음 으로 표시합니다.`}
+                  {data?.content}
                 </div>
               </div>
             </td>
@@ -119,7 +142,7 @@ const ProductDetail = () => {
           </tr>
           <tr style={{ textAlign: "left" }}>
             <td colSpan="4">
-              {data.map((section, index) => (
+              {data?.description.map((section, index) => (
                 <div key={index} style={{ marginBottom: "20px" }}>
                   {/* 헤더 부분 */}
                   <h3
