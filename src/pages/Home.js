@@ -13,24 +13,12 @@ const Home = () => {
               <div className="slider">
                 <img
                   className="mySlides fade active"
-                  src="/candv/bg1.png"
+                  src="/bg1.png"
                   border="1"
                 />
-                <img
-                  className="mySlides fade"
-                  src="/candv/bg2.png"
-                  border="1"
-                />
-                <img
-                  className="mySlides fade"
-                  src="/candv/bg3.png"
-                  border="1"
-                />
-                <img
-                  className="mySlides fade"
-                  src="/candv/bg4.png"
-                  border="1"
-                />
+                <img className="mySlides fade" src="/bg2.png" border="1" />
+                <img className="mySlides fade" src="/bg3.png" border="1" />
+                <img className="mySlides fade" src="/bg4.png" border="1" />
               </div>
             </td>
           </tr>

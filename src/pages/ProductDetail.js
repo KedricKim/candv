@@ -12,7 +12,7 @@ const ProductDetail = () => {
           <tr style={{ textAlign: "center" }}>
             <td colSpan="4">
               <img
-                src={`/candv/product/${productName}.png`}
+                src={`/product/${productName}.png`}
                 alt={productName}
                 width="350"
                 border="1"
@@ -26,7 +26,7 @@ const ProductDetail = () => {
           </tr>
           <tr style={{ textAlign: "left", fontWeight: "bold" }}>
             <td colSpan="4">
-              <img src="/candv/icon_arrow_blue.png" />
+              <img src="/icon_arrow_blue.png" />
               &nbsp;
               <a>제품 설명</a>
             </td>
@@ -46,7 +46,7 @@ const ProductDetail = () => {
           </tr>
           <tr style={{ textAlign: "left", fontWeight: "bold" }}>
             <td colSpan="4">
-              <img src="/candv/icon_arrow_blue.png" />
+              <img src="/icon_arrow_blue.png" />
               &nbsp;
               <a>제품 사양</a>
             </td>
@@ -70,7 +70,7 @@ const ProductDetail = () => {
           </tr>
           <tr style={{ textAlign: "left", fontWeight: "bold" }}>
             <td colSpan="4">
-              <img src="/candv/icon_arrow_blue.png" />
+              <img src="/icon_arrow_blue.png" />
               &nbsp;
               <a>카탈로그</a>
             </td>
@@ -81,9 +81,9 @@ const ProductDetail = () => {
           <tr>
             <td colSpan="4">
               &nbsp;&nbsp;&nbsp;
-              <img src="/candv/icon_arrow_blue01.png" width="12px" />
+              <img src="/icon_arrow_blue01.png" width="12px" />
               &nbsp;
-              <a href={`/candv/pdf/${productName}.pdf`} target="_blank">
+              <a href={`/pdf/${productName}.pdf`} target="_blank">
                 {productName}
               </a>
             </td>

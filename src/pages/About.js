@@ -28,7 +28,7 @@ const About = () => {
             <td>로고</td>
             <td>
               <img
-                src="/candv/logo.png"
+                src="/logo.png"
                 alt="C&V"
                 width="250"
                 height="94"

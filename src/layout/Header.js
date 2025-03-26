@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <img src="/candv/logo.png" />
+      <img src="/logo.png" />
       <div>
         <div className="address">
           서울시 은평구 진관동 은평뉴타운 우물골아파트 225동 101호<br></br>

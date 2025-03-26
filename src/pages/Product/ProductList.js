@@ -19,7 +19,7 @@ const ProductList = () => {
           </tr>
           <tr>
             <td colSpan="4">
-              <img src="/candv/product/pr01.png" border="1" />
+              <img src="/product/pr01.png" border="1" />
             </td>
           </tr>
           <tr style={{ textAlign: "left" }}>
@@ -38,7 +38,7 @@ const ProductList = () => {
           </tr>
           <tr style={{ textAlign: "left", fontWeight: "bold" }}>
             <td colSpan="4">
-              <img src="/candv/icon_arrow_blue.png" />
+              <img src="/icon_arrow_blue.png" />
               &nbsp; 전자기 유속계
             </td>
           </tr>
@@ -48,13 +48,13 @@ const ProductList = () => {
                 <tbody>
                   <tr style={{ textAlign: "left" }}>
                     <td colSpan="2">
-                      <img src="/candv/icon_arrow_blue01.png" width="12px" />
+                      <img src="/icon_arrow_blue01.png" width="12px" />
                       &nbsp;실험실용 전자유속계
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <img src="/candv/product/pr02.png" border="1" />
+                      <img src="/product/pr02.png" border="1" />
                     </td>
                     <td>
                       <ul>
@@ -81,13 +81,13 @@ const ProductList = () => {
                 <tbody>
                   <tr style={{ textAlign: "left" }}>
                     <td colSpan="2">
-                      <img src="/candv/icon_arrow_blue01.png" width="12px" />
+                      <img src="/icon_arrow_blue01.png" width="12px" />
                       &nbsp; 휴대용 전자유속계
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <img src="/candv/product/pr03.png" border="1" />
+                      <img src="/product/pr03.png" border="1" />
                     </td>
                     <td>
                       <ul>
@@ -118,7 +118,7 @@ const ProductList = () => {
           </tr>
           <tr style={{ textAlign: "left", fontWeight: "bold" }}>
             <td colSpan="4">
-              <img src="/candv/icon_arrow_blue.png" />
+              <img src="/icon_arrow_blue.png" />
               &nbsp; 프로펠러식 유속계
             </td>
           </tr>
@@ -128,13 +128,13 @@ const ProductList = () => {
                 <tbody>
                   <tr style={{ textAlign: "left" }}>
                     <td colSpan="2">
-                      <img src="/candv/icon_arrow_blue01.png" width="12px" />
+                      <img src="/icon_arrow_blue01.png" width="12px" />
                       &nbsp;프로펠러식 유속계
                     </td>
                   </tr>
                   <tr style={{ textAlign: "left" }}>
                     <td>
-                      <img src="/candv/product/pr04.png" border="1" />
+                      <img src="/product/pr04.png" border="1" />
                     </td>
                     <td>
                       <ul>
@@ -155,13 +155,13 @@ const ProductList = () => {
                 <tbody>
                   <tr style={{ textAlign: "left" }}>
                     <td colSpan="2">
-                      <img src="/candv/icon_arrow_blue01.png" width="12px" />
+                      <img src="/icon_arrow_blue01.png" width="12px" />
                       &nbsp;휴대용 프로펠러식 유속계
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <img src="/candv/product/pr05.png" border="1" />
+                      <img src="/product/pr05.png" border="1" />
                     </td>
                     <td>
                       <ul>

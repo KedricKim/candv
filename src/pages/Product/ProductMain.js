@@ -9,7 +9,7 @@ const ProductMain = () => {
       </tr>
       <tr style={{ textAlign: "left", fontWeight: "bold" }}>
         <td colSpan="4">
-          <img src="/candv/icon_arrow_blue.png" />
+          <img src="/icon_arrow_blue.png" />
           &nbsp;
           <a>제품군</a>
         </td>
@@ -21,7 +21,7 @@ const ProductMain = () => {
         <td>
           <Link to={`/product/list`}>
             <img
-              src="/candv/product/VP1500.png"
+              src="/product/VP1500.png"
               alt="VP1000"
               width="320"
               height="100"
@@ -34,7 +34,7 @@ const ProductMain = () => {
         <td>
           <Link to={`/product/list`}>
             <img
-              src="/candv/product/VP1500.png"
+              src="/product/VP1500.png"
               alt="VP1500"
               width="320"
               height="100"
@@ -49,7 +49,7 @@ const ProductMain = () => {
         <td>
           <Link to={`/product/list`}>
             <img
-              src="/candv/product/VP1500.png"
+              src="/product/VP1500.png"
               alt="VP1000"
               width="320"
               height="100"
@@ -62,7 +62,7 @@ const ProductMain = () => {
         <td>
           <Link to={`/product/list`}>
             <img
-              src="/candv/product/VP1500.png"
+              src="/product/VP1500.png"
               alt="VP1500"
               width="320"
               height="100"
@@ -77,7 +77,7 @@ const ProductMain = () => {
         <td>
           <Link to={`/product/list`}>
             <img
-              src="/candv/product/VP1500.png"
+              src="/product/VP1500.png"
               alt="VP1500"
               width="320"
               height="100"
@@ -90,7 +90,7 @@ const ProductMain = () => {
         <td>
           <Link to={`/product/list`}>
             <img
-              src="/candv/product/VP1500.png"
+              src="/product/VP1500.png"
               alt="VP1000"
               width="320"
               height="100"
@@ -107,7 +107,7 @@ const ProductMain = () => {
       </tr>
       <tr style={{ textAlign: "left", fontWeight: "bold" }}>
         <td colSpan="4">
-          <img src="/candv/icon_arrow_blue.png" />
+          <img src="/icon_arrow_blue.png" />
           &nbsp;
           <a>Sites</a>
         </td>
@@ -116,17 +116,17 @@ const ProductMain = () => {
         <td colSpan="4" className="homeUl">
           <ul>
             <li>
-              <img src="/candv/icon_arrow_blue01.png" width="12px" />
+              <img src="/icon_arrow_blue01.png" width="12px" />
               &nbsp;
               <Link to="/about">회사소개</Link>
             </li>
             <li>
-              <img src="/candv/icon_arrow_blue01.png" width="12px" />
+              <img src="/icon_arrow_blue01.png" width="12px" />
               &nbsp;
               <Link to="/estimate">온라인 견적</Link>
             </li>
             <li>
-              <img src="/candv/icon_arrow_blue01.png" width="12px" />
+              <img src="/icon_arrow_blue01.png" width="12px" />
               &nbsp;
               <Link to="/video">참고 영상</Link>
             </li>
