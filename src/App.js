@@ -7,7 +7,7 @@ import About from "./pages/About";
 import Product from "./pages/Product";
 import Estimate from "./pages/Estimate";
 import "./App.css";
-import ProductDetail from "./pages/ProductDetail";
+import ProductDetail from "./pages/Product/ProductDetail";
 import Video from "./pages/Video";
 import ProductList from "./pages/Product/ProductList";
 

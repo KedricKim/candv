@@ -19,10 +19,10 @@ const ProductMain = () => {
       </tr>
       <tr>
         <td>
-          <Link to={`/product/list`}>
+          <Link to={`/product/list`} state={{ target: "prod1" }}>
             <img
-              src="/product/VP1500.png"
-              alt="VP1500"
+              src="/product/VM-1001N.png"
+              alt="VM-1001N"
               width="320"
               height="100"
               border="1"
@@ -32,7 +32,7 @@ const ProductMain = () => {
           </Link>
         </td>
         <td>
-          <Link to={`/product/list`}>
+          <Link to={`/product/list`} state={{ target: "prod2" }}>
             <img
               src="/product/VP1500.png"
               alt="VP1000"
@@ -47,7 +47,7 @@ const ProductMain = () => {
       </tr>
       <tr>
         <td>
-          <Link to={`/product/list`}>
+          <Link to={`/product/list`} state={{ target: "prod3" }}>
             <img
               src="/product/VP1500.png"
               alt="VP1000"
@@ -60,10 +60,10 @@ const ProductMain = () => {
           </Link>
         </td>
         <td>
-          <Link to={`/product/list`}>
+          <Link to={`/product/list`} state={{ target: "prod4" }}>
             <img
-              src="/product/VP1500.png"
-              alt="VP1500"
+              src="/product/6113.png"
+              alt="6113"
               width="320"
               height="100"
               border="1"
@@ -75,10 +75,10 @@ const ProductMain = () => {
       </tr>
       <tr>
         <td>
-          <Link to={`/product/list`}>
+          <Link to={`/product/list`} state={{ target: "prod5" }}>
             <img
-              src="/product/VP1500.png"
-              alt="VP1500"
+              src="/product/D1-004P1A.png"
+              alt="D1-004P1A"
               width="320"
               height="100"
               border="1"
@@ -88,10 +88,10 @@ const ProductMain = () => {
           </Link>
         </td>
         <td>
-          <Link to={`/product/list`}>
+          <Link to={`/product/list`} state={{ target: "prod6" }}>
             <img
-              src="/product/VP1500.png"
-              alt="VP1000"
+              src="/product/HD-10.png"
+              alt="HD-10"
               width="320"
               height="100"
               border="1"

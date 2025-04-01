@@ -20,3 +20,34 @@
     padding-right: 20px;
   }
 }
+
+/* 테이블 스타일 유지 */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* 각 속성 블록을 균등하게 정렬 */
+.attribute-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 이미지 크기를 고정하되, 내용에 맞게 표시 */
+.attribute-block img {
+  width: 150px; /* 고정된 크기 */
+  height: 150px; /* 고정된 크기 */
+  object-fit: contain; /* 이미지가 짤리지 않도록 조정 */
+  border: 1px solid #ccc;
+}
+
+/* 리스트 스타일 유지 */
+.attribute-block ul {
+  flex: 1;
+}
+
+.attribute-block li {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

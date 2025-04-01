@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ProductDetail.css";
 import { useNavigate, useParams } from "react-router";
-import { supabase } from "../lib/supabase";
+import { supabase } from "../../lib/supabase";
 
 const ProductDetail = () => {
   const [data, setData] = useState();
@@ -95,6 +95,10 @@ const ProductDetail = () => {
                 alt={productName}
                 width="350"
                 border="1"
+                onError={(e) => {
+                  e.target.src = "/noimage.png";
+                  e.target.width = "100";
+                }}
               />
               <br></br>
               {productName}
@@ -196,29 +200,34 @@ const ProductDetail = () => {
           <tr style={{ height: "20px" }}>
             <td colSpan="4"></td>
           </tr>
-          <tr style={{ textAlign: "left", fontWeight: "bold" }}>
-            <td colSpan="4">
-              <img src="/icon_arrow_blue.png" />
-              &nbsp;
-              <a>카탈로그</a>
-            </td>
-          </tr>
-          <tr style={{ height: "10px" }}>
-            <td colSpan="4"></td>
-          </tr>
-          <tr>
-            <td colSpan="4">
-              &nbsp;&nbsp;&nbsp;
-              <img src="/icon_arrow_blue01.png" width="12px" />
-              &nbsp;
-              <a href={`/pdf/${productName}.pdf`} target="_blank">
-                {productName}
-              </a>
-            </td>
-          </tr>
-          <tr style={{ height: "20px" }}>
-            <td colSpan="4"></td>
-          </tr>
+
+          {data?.catalog_yn && (
+            <>
+              <tr style={{ textAlign: "left", fontWeight: "bold" }}>
+                <td colSpan="4">
+                  <img src="/icon_arrow_blue.png" />
+                  &nbsp;
+                  <a>카탈로그</a>
+                </td>
+              </tr>
+              <tr style={{ height: "10px" }}>
+                <td colSpan="4"></td>
+              </tr>
+              <tr>
+                <td colSpan="4">
+                  &nbsp;&nbsp;&nbsp;
+                  <img src="/icon_arrow_blue01.png" width="12px" />
+                  &nbsp;
+                  <a href={`/pdf/${productName}.pdf`} target="_blank">
+                    {productName}
+                  </a>
+                </td>
+              </tr>
+              <tr style={{ height: "20px" }}>
+                <td colSpan="4"></td>
+              </tr>
+            </>
+          )}
           <tr style={{ textAlign: "center", fontWeight: "bold" }}>
             <td colSpan="4">
               <button onClick={() => navigate(-1)}>뒤로</button>
