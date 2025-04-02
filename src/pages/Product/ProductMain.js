@@ -19,7 +19,7 @@ const ProductMain = () => {
       </tr>
       <tr>
         <td>
-          <Link to={`/product/list`} state={{ target: "prod1" }}>
+          <Link to={`/product/list?target=prod1`}>
             <img
               src="/product/VM-1001N.png"
               alt="VM-1001N"
@@ -32,7 +32,7 @@ const ProductMain = () => {
           </Link>
         </td>
         <td>
-          <Link to={`/product/list`} state={{ target: "prod2" }}>
+          <Link to={`/product/list?target=prod2`}>
             <img
               src="/product/VP1500.png"
               alt="VP1000"
@@ -41,26 +41,26 @@ const ProductMain = () => {
               border="1"
             />
             <br></br>
-            파고계
+            파고계 및 수위계
           </Link>
         </td>
       </tr>
       <tr>
         <td>
-          <Link to={`/product/list`} state={{ target: "prod3" }}>
+          <Link to={`/product/list?target=prod3`}>
             <img
-              src="/product/VP1500.png"
-              alt="VP1000"
+              src="/product/P306.png"
+              alt="P306"
               width="320"
               height="100"
               border="1"
             />
             <br></br>
-            수위계
+            초소형 압력계
           </Link>
         </td>
         <td>
-          <Link to={`/product/list`} state={{ target: "prod4" }}>
+          <Link to={`/product/list?target=prod4`}>
             <img
               src="/product/6113.png"
               alt="6113"
@@ -75,7 +75,7 @@ const ProductMain = () => {
       </tr>
       <tr>
         <td>
-          <Link to={`/product/list`} state={{ target: "prod5" }}>
+          <Link to={`/product/list?target=prod5`}>
             <img
               src="/product/D1-004P1A.png"
               alt="D1-004P1A"
@@ -88,7 +88,7 @@ const ProductMain = () => {
           </Link>
         </td>
         <td>
-          <Link to={`/product/list`} state={{ target: "prod6" }}>
+          <Link to={`/product/list?target=prod6`}>
             <img
               src="/product/HD-10.png"
               alt="HD-10"

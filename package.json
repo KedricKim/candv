@@ -42,11 +42,13 @@
       "--no-sandbox",
       "--disable-setuid-sandbox"
     ],
+    "fixWebpackChunksIssue": true,
+    "removeBlobs": true,
+    "inlineCss": true,
     "include": [
       "/about",
       "/product",
       "/product/list",
-      "/product/detail/:productName",
       "/estimate",
       "/video"
     ]

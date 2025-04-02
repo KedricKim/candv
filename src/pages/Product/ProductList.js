@@ -6,7 +6,9 @@ import MetaTag from "../../SEOMetaTag";
 
 const ProductList = () => {
   const location = useLocation();
-  const target = location.state.target;
+  // const target = location.state.target;
+  const params = new URLSearchParams(location.search);
+  const target = params.get("target");
 
   const [data, setData] = useState();
 
