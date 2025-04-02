@@ -5,7 +5,6 @@
 <url> <loc>https://kedric.duckdns.org/about</loc> </url>
 <url> <loc>https://kedric.duckdns.org/product</loc> </url>
 <url> <loc>https://kedric.duckdns.org/product/list</loc> </url>
-<url> <loc>https://kedric.duckdns.org/product/detail/:productName</loc> </url>
 <url> <loc>https://kedric.duckdns.org/estomate</loc> </url>
 <url> <loc>https://kedric.duckdns.org/video</loc> </url>
 </urlset>
