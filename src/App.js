@@ -1,19 +1,21 @@
 import React from "react";
-import { Routes, Route } from "react-router";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import "./App.css";
+import { Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Product from "./pages/Product";
 import Estimate from "./pages/Estimate";
-import "./App.css";
 import ProductDetail from "./pages/Product/ProductDetail";
 import Video from "./pages/Video";
 import ProductList from "./pages/Product/ProductList";
+import SEOMetaTag from "./SEOMetaTag";
 
 const App = () => {
   return (
     <div className="app">
+      <SEOMetaTag />
       <Header />
       <main className="content">
         <Routes>
