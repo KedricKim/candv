@@ -49,7 +49,11 @@ const ProductList = () => {
             </tr>
             <tr>
               <td colSpan="4">
-                <img src={`/product/${target}.png`} border="1" />
+                <img
+                  src={`/product/${target}.png`}
+                  border="1"
+                  alt="product_image"
+                />
               </td>
             </tr>
             <tr style={{ textAlign: "left" }}>
@@ -85,6 +89,7 @@ const ProductList = () => {
                                       <img
                                         src="/icon_arrow_blue01.png"
                                         width="12px"
+                                        alt="arrow"
                                       />
                                       &nbsp;{key}
                                     </td>
@@ -101,6 +106,7 @@ const ProductList = () => {
                                     </td>
                                     <td>
                                       <ul>
+                                        {/* 제품명 */}
                                         {value.map((prd, idx) => (
                                           <li key={idx}>
                                             <Link to={`/product/detail/${prd}`}>

@@ -112,7 +112,7 @@ const ProductDetail = () => {
             </tr>
             <tr style={{ textAlign: "left", fontWeight: "bold" }}>
               <td colSpan="4">
-                <img src="/icon_arrow_blue.png" />
+                <img src="/icon_arrow_blue.png" alt="arrow" />
                 &nbsp;
                 <a>제품 설명</a>
               </td>
@@ -140,7 +140,7 @@ const ProductDetail = () => {
             </tr>
             <tr style={{ textAlign: "left", fontWeight: "bold" }}>
               <td colSpan="4">
-                <img src="/icon_arrow_blue.png" />
+                <img src="/icon_arrow_blue.png" alt="arrow" />
                 &nbsp;
                 <a>제품 사양</a>
               </td>
@@ -211,7 +211,7 @@ const ProductDetail = () => {
               <>
                 <tr style={{ textAlign: "left", fontWeight: "bold" }}>
                   <td colSpan="4">
-                    <img src="/icon_arrow_blue.png" />
+                    <img src="/icon_arrow_blue.png" alt="arrow" />
                     &nbsp;
                     <a>카탈로그</a>
                   </td>
@@ -222,7 +222,11 @@ const ProductDetail = () => {
                 <tr>
                   <td colSpan="4">
                     &nbsp;&nbsp;&nbsp;
-                    <img src="/icon_arrow_blue01.png" width="12px" />
+                    <img
+                      src="/icon_arrow_blue01.png"
+                      width="12px"
+                      alt="arrow"
+                    />
                     &nbsp;
                     <a href={`/pdf/${productName}.pdf`} target="_blank">
                       {productName}

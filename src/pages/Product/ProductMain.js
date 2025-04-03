@@ -9,7 +9,7 @@ const ProductMain = () => {
       </tr>
       <tr style={{ textAlign: "left", fontWeight: "bold" }}>
         <td colSpan="4">
-          <img src="/icon_arrow_blue.png" />
+          <img src="/icon_arrow_blue.png" alt="arrow" />
           &nbsp;
           <a>제품군</a>
         </td>
@@ -22,7 +22,7 @@ const ProductMain = () => {
           <Link to={`/product/list?target=prod1`}>
             <img
               src="/product/VM-1001N.png"
-              alt="VM-1001N"
+              alt="VM-1001N 유속계"
               width="320"
               height="100"
               border="1"
@@ -35,7 +35,7 @@ const ProductMain = () => {
           <Link to={`/product/list?target=prod2`}>
             <img
               src="/product/VP1500.png"
-              alt="VP1000"
+              alt="VP1000 파고계 및 수위계"
               width="320"
               height="100"
               border="1"
@@ -50,7 +50,7 @@ const ProductMain = () => {
           <Link to={`/product/list?target=prod3`}>
             <img
               src="/product/P306.png"
-              alt="P306"
+              alt="P306 초소형 압력계"
               width="320"
               height="100"
               border="1"
@@ -63,7 +63,7 @@ const ProductMain = () => {
           <Link to={`/product/list?target=prod4`}>
             <img
               src="/product/6113.png"
-              alt="6113"
+              alt="6113 풍속계"
               width="320"
               height="100"
               border="1"
@@ -78,7 +78,7 @@ const ProductMain = () => {
           <Link to={`/product/list?target=prod5`}>
             <img
               src="/product/D1-004P1A.png"
-              alt="D1-004P1A"
+              alt="D1-004P1A 데이터로거"
               width="320"
               height="100"
               border="1"
@@ -91,7 +91,7 @@ const ProductMain = () => {
           <Link to={`/product/list?target=prod6`}>
             <img
               src="/product/HD-10.png"
-              alt="HD-10"
+              alt="HD-10 제작 실험장치"
               width="320"
               height="100"
               border="1"
@@ -107,7 +107,7 @@ const ProductMain = () => {
       </tr>
       <tr style={{ textAlign: "left", fontWeight: "bold" }}>
         <td colSpan="4">
-          <img src="/icon_arrow_blue.png" />
+          <img src="/icon_arrow_blue.png" alt="arrow" />
           &nbsp;
           <a>Sites</a>
         </td>
@@ -116,17 +116,17 @@ const ProductMain = () => {
         <td colSpan="4" className="homeUl">
           <ul>
             <li>
-              <img src="/icon_arrow_blue01.png" width="12px" />
+              <img src="/icon_arrow_blue01.png" width="12px" alt="arrow" />
               &nbsp;
               <Link to="/about">회사소개</Link>
             </li>
             <li>
-              <img src="/icon_arrow_blue01.png" width="12px" />
+              <img src="/icon_arrow_blue01.png" width="12px" alt="arrow" />
               &nbsp;
               <Link to="/estimate">온라인 견적</Link>
             </li>
             <li>
-              <img src="/icon_arrow_blue01.png" width="12px" />
+              <img src="/icon_arrow_blue01.png" width="12px" alt="arrow" />
               &nbsp;
               <Link to="/video">참고 영상</Link>
             </li>
