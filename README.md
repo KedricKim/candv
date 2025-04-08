@@ -1,6 +1,6 @@
 # C&V Web Project
 
-[![Deploy Status](https://github.com/kedric/candv/actions/workflows/deploy.yml/badge.svg)](https://github.com/kedric/candv/actions/workflows/deploy.yml)
+[![Deploy Status](https://github.com/KedricKim/candv/actions/workflows/deploy.yml/badge.svg)](https://github.com/KedricKim/candv/actions/workflows/deploy.yml)
 [![Deploy to GitHub Pages](https://img.shields.io/badge/deploy-GitHub%20Pages-blue?logo=github)](https://kedric.duckdns.org)
 
 React 기반 정적 웹사이트로, GitHub Actions를 활용하여 GitHub Pages에 자동 배포됩니다.  
