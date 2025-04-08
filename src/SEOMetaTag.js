@@ -5,11 +5,11 @@ const MetaTag = () => {
     <Helmet>
       <meta
         name="google-site-verification"
-        content="qU8rfjtPA-hyIbeksC0SvOok-fk6ibgYMoW-UDME1qc"
+        content={`${process.env.REACT_APP_GOOGLE_SEO}`}
       />
       <meta
         name="naver-site-verification"
-        content="505da4d51757e793644c3c36078714d5e012add6"
+        content={`${process.env.REACT_APP_NAVER_SEO}`}
       />
       <meta name="title" content="씨앤브이 (Currnt & Velocity)"></meta>
       <meta
