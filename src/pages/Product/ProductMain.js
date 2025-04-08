@@ -34,14 +34,14 @@ const ProductMain = () => {
         <td>
           <Link to={`/product/list?target=prod2`}>
             <img
-              src="/product/VP1500.png"
-              alt="VP1000 파고계 및 수위계"
+              src="/product/CH-701E.png"
+              alt="CH-701E 파고계"
               width="320"
               height="100"
               border="1"
             />
             <br></br>
-            파고계 및 수위계
+            파고계
           </Link>
         </td>
       </tr>
@@ -77,8 +77,8 @@ const ProductMain = () => {
         <td>
           <Link to={`/product/list?target=prod5`}>
             <img
-              src="/product/D1-004P1A.png"
-              alt="D1-004P1A 데이터로거"
+              src="/product/GL260.png"
+              alt="GL260 데이터로거"
               width="320"
               height="100"
               border="1"
