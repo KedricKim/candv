@@ -27,7 +27,7 @@ const MetaTag = () => {
         property="og:description"
         content="폐사는 일본 KENEK사의 한국 SOLE AGENT입니다. KENEK사에서 생산되는 모든 제품을 저렴한 가격으로 공급하고 있습니다.candv,cnv,c&v,kenek,케넥,유속계,파고계,압력계,풍속계,씨앤브이"
       ></meta>
-      <meta property="og:url" content="https://candv.co.kr"></meta>
+      <meta property="og:url" content="http://candv.co.kr"></meta>
     </Helmet>
   );
 };

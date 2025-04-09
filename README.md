@@ -1,7 +1,7 @@
 # C&V Web Project
 
 [![Deploy Status](https://github.com/KedricKim/candv/actions/workflows/deploy.yml/badge.svg)](https://github.com/KedricKim/candv/actions/workflows/deploy.yml)
-[![Deploy to GitHub Pages](https://img.shields.io/badge/deploy-GitHub%20Pages-blue?logo=github)](https://candv.co.kr)
+[![Deploy to GitHub Pages](https://img.shields.io/badge/deploy-GitHub%20Pages-blue?logo=github)](http://candv.co.kr)
 
 React 기반 정적 웹사이트로, GitHub Actions를 활용하여 GitHub Pages에 자동 배포됩니다.  
 SEO 최적화 및 Supabase 연동이 포함되어 있습니다.
@@ -11,7 +11,7 @@ SEO 최적화 및 Supabase 연동이 포함되어 있습니다.
 ## 🔧 GitHub Actions를 통한 자동 배포 설정
 
 이 프로젝트는 GitHub Actions를 통해 `main` 브랜치에 Push 시 자동으로 빌드 및 배포됩니다.  
-배포 경로: [https://candv.co.kr](https://candv.co.kr)
+배포 경로: [http://candv.co.kr](http://candv.co.kr)
 
 ---
 
