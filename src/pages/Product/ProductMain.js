@@ -50,13 +50,13 @@ const ProductMain = () => {
           <Link to={`/product/list?target=prod3`}>
             <img
               src="/product/P306.png"
-              alt="P306 초소형 압력계"
+              alt="P306 압력계"
               width="320"
               height="100"
               border="1"
             />
             <br></br>
-            초소형 압력계
+            압력계
           </Link>
         </td>
         <td>
