@@ -56,13 +56,12 @@ const ProductList = () => {
                 />
               </td>
             </tr>
-            <tr style={{ textAlign: "left" }}>
+            <tr style={{ textAlign: "left", whiteSpace: "pre-line" }}>
               <td colSpan="4">{data?.description}</td>
             </tr>
-
             {data?.content.length > 0 &&
               data?.content.map((section, index) => (
-                <>
+                <React.Fragment key={index}>
                   <tr>
                     <td colSpan="4">
                       <hr />
@@ -75,13 +74,17 @@ const ProductList = () => {
                     </td>
                   </tr>
                   {(() => {
-                    const entries = Object.entries(section.attributes);
                     const rows = [];
+                    const entries = section.attributes;
                     for (let i = 0; i < entries.length; i += 2) {
                       rows.push(
                         <tr key={i}>
-                          {entries.slice(i, i + 2).map(([key, value]) => (
-                            <td colSpan="2" key={key} className="product-table">
+                          {entries.slice(i, i + 2).map(({ name, models }) => (
+                            <td
+                              colSpan="2"
+                              key={name}
+                              className="product-table"
+                            >
                               <table style={{ width: "100%" }}>
                                 <tbody>
                                   <tr style={{ textAlign: "left" }}>
@@ -91,23 +94,22 @@ const ProductList = () => {
                                         width="12px"
                                         alt="arrow"
                                       />
-                                      &nbsp;{key}
+                                      &nbsp;{name}
                                     </td>
                                   </tr>
                                   <tr className="attribute-block">
                                     <td>
                                       <img
-                                        src={`/product/${value[0]}.png`}
+                                        src={`/product/${models[0]}.png`}
                                         onError={(e) => {
                                           e.target.src = "/noimage.png";
                                         }}
-                                        alt={key}
+                                        alt={name}
                                       />
                                     </td>
                                     <td>
                                       <ul>
-                                        {/* 제품명 */}
-                                        {value.map((prd, idx) => (
+                                        {models.map((prd, idx) => (
                                           <li key={idx}>
                                             <Link to={`/product/detail/${prd}`}>
                                               {prd}
@@ -126,7 +128,7 @@ const ProductList = () => {
                     }
                     return rows;
                   })()}
-                </>
+                </React.Fragment>
               ))}
 
             <tr style={{ height: "20px" }}>
