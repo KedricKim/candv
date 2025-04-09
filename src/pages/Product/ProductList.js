@@ -23,7 +23,6 @@ const ProductList = () => {
       if (error) {
         console.error("데이터 가져오기 오류:", error);
       } else {
-        console.log(product);
         setData(product); // jsonb 필드 파싱
       }
     };
@@ -33,7 +32,7 @@ const ProductList = () => {
 
   return (
     <>
-      <MetaTag />
+      <MetaTag title={"Product | 제품 - 씨앤브이 (Currnt & Velocity)"} />
       <div className="productList">
         <table width="40%">
           <tbody>
