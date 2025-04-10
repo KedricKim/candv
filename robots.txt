@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://candv.co.kr/sitemap.xml
+Sitemap: https://www.candv.co.kr/sitemap.xml
