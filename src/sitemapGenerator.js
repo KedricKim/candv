@@ -7,7 +7,7 @@ const Sitemap = require("react-router-sitemap").default;
 
 function generateSitemap() {
   return new Sitemap(router)
-    .build("http://candv.co.kr")
+    .build("https://candv.co.kr")
     .save("./public/sitemap.xml");
 }
 
