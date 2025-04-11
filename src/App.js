@@ -29,6 +29,8 @@ const App = () => {
           />
           <Route path="/estimate" element={<Estimate />} />
           <Route path="/video" element={<Video />} />
+          {/* 404 페이지 처리 */}
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
       <Footer />
