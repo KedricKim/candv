@@ -107,7 +107,7 @@ const ProductList = () => {
                                   <tr className="flex items-center gap-[10px] [&_ul]:flex-1 [&_li]:whitespace-nowrap [&_li]:overflow-ellipsis">
                                     <td>
                                       <img
-                                        className="w-[150px] h-[150px] object-contain border border-gray-300 max-w-none"
+                                        className="w-[200px] h-[150px] object-contain border border-gray-300 max-w-none"
                                         src={`/product/${models[0]}.png`}
                                         onError={(e) => {
                                           e.target.src = "/noimage.png";
