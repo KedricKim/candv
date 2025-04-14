@@ -1,36 +1,3 @@
-.home table {
-  justify-self: center;
-  tr {
-    text-align: center;
-  }
-}
-.home {
-  a {
-    text-decoration-line: none;
-    color: inherit;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-}
-
-.homeUl {
-  ul {
-    display: flex;
-    list-style: none;
-    li {
-      padding-right: 40px;
-    }
-  }
-}
-
-.productCatalog {
-  text-align: left !important;
-  td {
-    padding: 5px 0px 5px 20px;
-  }
-}
-
 .slider {
   position: relative;
   width: 760px;

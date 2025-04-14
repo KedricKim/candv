@@ -4,11 +4,3 @@ body {
   /* background-color: #eee0e0; */
   background-color: #fffff0;
 }
-.app {
-  padding-top: 131px; /* Header 높이만큼 패딩 추가 */
-  padding-bottom: 20px; /* Footer 높이만큼 패딩 추가 */
-}
-
-.content {
-  padding-top: 20px;
-}

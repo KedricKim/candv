@@ -30,7 +30,7 @@ const Header = () => {
     <header className="header">
       <img src="/logo.png" alt="logo" />
       <div>
-        <div className="address">
+        <div className="address whitespace-normal">
           서울시 은평구 진관동 은평뉴타운 우물골아파트 225동 101호<br></br>
           <small>전화 : 031 - 782 - 9165/6 팩스 : 031 - 782 - 9167</small>
           <br></br>

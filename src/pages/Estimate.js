@@ -61,7 +61,11 @@ const Estimate = () => {
         }
       />
       <div className="estimate">
-        <table border="0" width="40%" style={{ justifySelf: "center" }}>
+        <table
+          border="0"
+          width="40%"
+          className="justify-self-center [&_hr]:border-black [&_hr]:my-2 [&_input]:border [&_input]:border-black"
+        >
           <tbody>
             <tr>
               <th colSpan="3" bgcolor="#0000ff">
@@ -91,17 +95,12 @@ const Estimate = () => {
               <td>
                 <div>
                   <form ref={form} onSubmit={sendEmail}>
-                    <table
-                      border="0"
-                      cellSpacing="0"
-                      cellPadding="0"
-                      className="mailform"
-                    >
+                    <table className="mailform [&_span]:text-red-600">
                       <tbody>
                         <tr>
                           <th>
                             <p>
-                              <span style={{ color: "red" }}>*</span> 담당자
+                              <span>*</span> 담당자
                             </p>
                           </th>
                           <td>
@@ -109,8 +108,7 @@ const Estimate = () => {
                               type="text"
                               name="from_name"
                               size="40"
-                              className="mf"
-                              style={{ width: "240px" }}
+                              className="w-60"
                             />
                           </td>
                         </tr>
@@ -123,14 +121,14 @@ const Estimate = () => {
                               type="text"
                               name="brand"
                               size="40"
-                              style={{ width: "240px" }}
+                              className="w-60"
                             />
                           </td>
                         </tr>
                         <tr>
                           <th>
                             <p>
-                              <span style={{ color: "red" }}>*</span> 전화번호
+                              <span>*</span> 전화번호
                             </p>
                           </th>
                           <td>
@@ -138,14 +136,14 @@ const Estimate = () => {
                               type="text"
                               name="phone"
                               size="40"
-                              style={{ width: "240px" }}
+                              className="w-60"
                             />
                           </td>
                         </tr>
                         <tr>
                           <th>
                             <p>
-                              <span style={{ color: "red" }}>*</span> E-Mail
+                              <span>*</span> E-Mail
                             </p>
                           </th>
                           <td>
@@ -153,7 +151,7 @@ const Estimate = () => {
                               type="text"
                               name="email"
                               size="30"
-                              style={{ width: "180px" }}
+                              className="w-40"
                             />
                           </td>
                         </tr>
@@ -166,43 +164,68 @@ const Estimate = () => {
                               type="text"
                               name="product"
                               size="30"
-                              style={{ width: "180px" }}
+                              className="w-40"
                             />
                           </td>
                         </tr>
                         <tr>
                           <th>
                             <p>
-                              <span style={{ color: "red" }}>*</span> 상담항목
+                              <span className="text-red-600">*</span> 상담항목
                             </p>
                           </th>
                           <td>
-                            <input type="radio" name="type" value="제품" /> 제품
-                            <input type="radio" name="type" value="견적" /> 견적
-                            <input type="radio" name="type" value="메뉴얼" />
+                            <input
+                              type="radio"
+                              name="type"
+                              value="제품"
+                              className="mx-1"
+                            />
+                            제품
+                            <input
+                              className="mx-1"
+                              type="radio"
+                              name="type"
+                              value="견적"
+                            />
+                            견적
+                            <input
+                              className="mx-1"
+                              type="radio"
+                              name="type"
+                              value="메뉴얼"
+                            />
                             메뉴얼
                             <input
+                              className="mx-1"
                               type="radio"
                               name="type"
                               value="기타"
                               defaultChecked
-                            />{" "}
+                            />
                             기타 - 원하시는 상담 항목을 선택하세요.
                           </td>
                         </tr>
                         <tr>
                           <th>
                             <p>
-                              <span style={{ color: "red" }}>*</span> 회신방법
+                              <span>*</span> 회신방법
                             </p>
                           </th>
                           <td>
-                            <input type="radio" name="res" value="제품" /> 전화
+                            <input
+                              type="radio"
+                              name="res"
+                              value="제품"
+                              className="mx-1"
+                            />
+                            전화
                             <input
                               type="radio"
                               name="res"
                               value="메뉴얼"
                               defaultChecked
+                              className="mx-1"
                             />
                             이메일 - 원하시는 상담 항목을 선택하세요.
                           </td>
@@ -210,7 +233,7 @@ const Estimate = () => {
                         <tr>
                           <th>
                             <p>
-                              <span style={{ color: "red" }}>*</span> 내용
+                              <span>*</span> 내용
                             </p>
                           </th>
                           <td>
@@ -218,20 +241,25 @@ const Estimate = () => {
                               name="message"
                               rows="10"
                               cols="70"
-                              style={{ height: "120px", height: "120px" }}
+                              className="h-32 border border-black"
                             ></textarea>
                           </td>
                         </tr>
                         <tr>
                           <th></th>
                           <td>
-                            <input type="submit" value="견적문의" />
+                            <input
+                              type="submit"
+                              value="견적문의"
+                              className="px-2"
+                            />
                             &nbsp;&nbsp;
                             <input
                               id="reset"
                               type="reset"
                               name="reset"
                               value="다시쓰기"
+                              className="px-2"
                             />
                           </td>
                         </tr>

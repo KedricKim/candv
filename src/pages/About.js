@@ -14,7 +14,11 @@ const About = () => {
         }
       />
       <div className="about">
-        <table border="0" width="40%" style={{ justifySelf: "center" }}>
+        <table
+          border="0"
+          width="40%"
+          className="justify-self-center [&_hr]:border-black [&_hr]:my-2"
+        >
           <tbody>
             <tr>
               <th colSpan="3" bgcolor="#0000ff">

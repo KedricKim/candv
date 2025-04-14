@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./ProductList.css";
 import { Link, useLocation } from "react-router";
 import { supabase } from "../../lib/supabase";
 import MetaTag from "../../SEOMetaTag";
@@ -33,8 +32,8 @@ const ProductList = () => {
   return (
     <>
       <MetaTag title={"Product | 제품 - 씨앤브이 (Currnt & Velocity)"} />
-      <div className="productList">
-        <table width="40%">
+      <div className="[&_ul]:text-left [&_ul]:pe-5 [&_hr]:my-2 [&_hr]:border-black [&_a]:no-underline [&_a]:text-blue-600 [&_a:hover]:underline">
+        <table width="40%" className="justify-self-center [&_tr]:text-center">
           <tbody>
             <tr>
               <th colSpan="4" bgcolor="#0000ff">
@@ -52,10 +51,11 @@ const ProductList = () => {
                   src={`/product/${target}.png`}
                   border="1"
                   alt="product_image"
+                  className="mx-auto"
                 />
               </td>
             </tr>
-            <tr style={{ textAlign: "left", whiteSpace: "pre-line" }}>
+            <tr className="!text-left whitespace-pre-line">
               <td colSpan="4">{data?.description}</td>
             </tr>
             {data?.content.length > 0 &&
@@ -66,10 +66,14 @@ const ProductList = () => {
                       <hr />
                     </td>
                   </tr>
-                  <tr style={{ textAlign: "left", fontWeight: "bold" }}>
-                    <td colSpan="4">
-                      <img src="/icon_arrow_blue.png" alt="arrow" />
-                      &nbsp; {section.header}
+                  <tr className="!text-left !font-bold">
+                    <td colSpan="4" className="!flex !items-center">
+                      <img
+                        src="/icon_arrow_blue.png"
+                        alt="arrow"
+                        className="mr-2"
+                      />
+                      {section.header}
                     </td>
                   </tr>
                   {(() => {
@@ -82,23 +86,28 @@ const ProductList = () => {
                             <td
                               colSpan="2"
                               key={name}
-                              className="product-table"
+                              className="w-full border-collapse"
                             >
-                              <table style={{ width: "100%" }}>
+                              <table className="w-full">
                                 <tbody>
-                                  <tr style={{ textAlign: "left" }}>
-                                    <td colSpan="2">
+                                  <tr className="!text-left">
+                                    <td
+                                      colSpan="2"
+                                      className="!flex !items-center"
+                                    >
                                       <img
                                         src="/icon_arrow_blue01.png"
                                         width="12px"
                                         alt="arrow"
+                                        className="mr-2"
                                       />
-                                      &nbsp;{name}
+                                      {name}
                                     </td>
                                   </tr>
-                                  <tr className="attribute-block">
+                                  <tr className="flex items-center gap-[10px] [&_ul]:flex-1 [&_li]:whitespace-nowrap [&_li]:overflow-ellipsis">
                                     <td>
                                       <img
+                                        className="w-[150px] h-[150px] object-contain border border-gray-300 max-w-none"
                                         src={`/product/${models[0]}.png`}
                                         onError={(e) => {
                                           e.target.src = "/noimage.png";
@@ -107,7 +116,7 @@ const ProductList = () => {
                                       />
                                     </td>
                                     <td>
-                                      <ul>
+                                      <ul className="px-7 list-disc">
                                         {models.map((prd, idx) => (
                                           <li key={idx}>
                                             <Link to={`/product/detail/${prd}`}>
@@ -130,7 +139,7 @@ const ProductList = () => {
                 </React.Fragment>
               ))}
 
-            <tr style={{ height: "20px" }}>
+            <tr className="h-10">
               <td colSpan="4"></td>
             </tr>
           </tbody>
