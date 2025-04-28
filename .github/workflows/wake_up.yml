@@ -1,0 +1,17 @@
+name: Wake up Supabase periodically
+
+on:
+  schedule:
+    - cron: "0 0 */5 * *"  # 5일마다 자정에 실행 (7일 이내에 깨우려면 충분)
+  workflow_dispatch:  # 수동 실행도 가능
+
+jobs:
+  send_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Wake Up Request
+        run: |
+          curl --request GET https://vpiyndbsgskgbcdafmdf.supabase.co/rest/v1/product_list?select=*&type=eq.prod1 \
+          --header "apikey: ${{ secrets.REACT_APP_SUPABASE_KEY }}" \
+          --header "Authorization: Bearer ${{ secrets.REACT_APP_SUPABASE_KEY }}" \
+          --header "Content-Type: application/json"
