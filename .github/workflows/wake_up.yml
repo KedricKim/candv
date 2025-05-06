@@ -11,7 +11,6 @@ jobs:
     steps:
       - name: Send Wake Up Request
         run: |
-          curl --request GET https://vpiyndbsgskgbcdafmdf.supabase.co/rest/v1/product_list?select=*&type=eq.prod1 \
+          curl --request GET "https://vpiyndbsgskgbcdafmdf.supabase.co/rest/v1/product_list?select=*&type=eq.prod1" \
           --header "apikey: ${{ secrets.REACT_APP_SUPABASE_KEY }}" \
-          --header "Authorization: Bearer ${{ secrets.REACT_APP_SUPABASE_KEY }}" \
           --header "Content-Type: application/json"
