@@ -2,7 +2,7 @@ name: Wake up Supabase periodically
 
 on:
   schedule:
-    - cron: "0 0 */5 * *"  # 5일마다 자정에 실행 (7일 이내에 깨우려면 충분)
+    - cron: "0 0 */3 * *"  # 5일마다 자정에 실행 (7일 이내에 깨우려면 충분)
   workflow_dispatch:  # 수동 실행도 가능
 
 jobs:
