@@ -1,5 +1,4 @@
 import React from "react";
-import "./Video.css";
 import YouTube from "react-youtube";
 import MetaTag from "../SEOMetaTag";
 
@@ -16,7 +15,11 @@ const Video = () => {
         }
       />
       <div className="video">
-        <table border="0" width="40%" style={{ justifySelf: "center" }}>
+        <table
+          border="0"
+          width="40%"
+          className="[&_tr]:text-center justify-self-center [&_hr]:border-black [&_hr]:my-2"
+        >
           <tbody>
             <tr>
               <th colSpan="3" bgcolor="#0000ff">

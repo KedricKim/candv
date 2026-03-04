@@ -13,7 +13,8 @@
 
   .address {
     text-align: right;
-    margin: 20px 0px 5px 0px;
+    margin: 10px 0px 5px 0px;
+    line-height: 1.2;
   }
 
   ul {

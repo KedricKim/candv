@@ -14,10 +14,10 @@ import SEOMetaTag from "./SEOMetaTag";
 
 const App = () => {
   return (
-    <div className="app">
+    <div className="app pt-[131px] pb-5">
       <SEOMetaTag />
       <Header />
-      <main className="content">
+      <main className="content pt-5">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -29,6 +29,8 @@ const App = () => {
           />
           <Route path="/estimate" element={<Estimate />} />
           <Route path="/video" element={<Video />} />
+          {/* 404 페이지 처리 */}
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
       <Footer />

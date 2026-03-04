@@ -1,6 +1,4 @@
 import React from "react";
-import "./Product.css";
-import { Link } from "react-router";
 import ProductMain from "./Product/ProductMain";
 import MetaTag from "../SEOMetaTag";
 
@@ -17,7 +15,10 @@ const Product = () => {
         }
       />
       <div className="product">
-        <table width="40%">
+        <table
+          width="40%"
+          className="justify-self-center [&_tr]:text-center [&_hr]:border-black [&_hr]:my-2"
+        >
           <tbody>
             <tr>
               <th colSpan="4" bgcolor="#0000ff">
@@ -29,8 +30,8 @@ const Product = () => {
                 <hr></hr>
               </td>
             </tr>
-            <tr style={{ textAlign: "left" }}>
-              <td colSpan="4">
+            <tr>
+              <td colSpan="4" className="text-left">
                 C & V에서는 계측계 측량계등 다양한 분야의 제품들을 소개 및
                 공급하고 있습니다. <br></br>세계 유수의 첨단 기기 제품들을 가장
                 저렴한 가격과 차별화된 서비스 및 기술지원으로 C & V의 독특한
