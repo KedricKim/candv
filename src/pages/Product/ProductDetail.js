@@ -93,57 +93,62 @@ const ProductDetail = () => {
             </tr>
             <tr style={{ textAlign: "left" }}>
               <td colSpan="4">
-                {data?.description.map((section, index) => (
-                  <div key={index} style={{ marginBottom: "20px" }}>
-                    {/* 헤더 부분 */}
-                    <h3
-                      style={{
-                        borderBottom: "2px solid #333",
-                        paddingBottom: "5px",
-                        marginTop: "0px",
-                      }}
-                    >
-                      {section.header}
-                    </h3>
-                    {/* 데이터 테이블 */}
-                    <table
-                      style={{
-                        width: "100%",
-                        borderCollapse: "collapse",
-                        marginTop: "10px",
-                      }}
-                      border="1"
-                    >
-                      <tbody>
-                        {Object.entries(section.attributes).map(
-                          ([key, value]) => (
-                            <tr key={key}>
-                              <td
-                                style={{
-                                  fontWeight: "bold",
-                                  padding: "8px",
-                                  background: "#f5f5f5",
-                                  width: "200px",
-                                  whiteSpace: "nowrap",
-                                }}
-                              >
-                                {key}
-                              </td>
-                              <td
-                                style={{
-                                  padding: "8px",
-                                  whiteSpace: "pre-line",
-                                }}
-                              >
-                                {value}
-                              </td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                ))}
+                {data?.description
+                  ?.slice() // 원본 변경 방지
+                  .sort((a, b) => a.order - b.order)
+                  .map((section) => (
+                    <div key={section.order} style={{ marginBottom: "20px" }}>
+                      {/* 헤더 */}
+                      <h3
+                        style={{
+                          borderBottom: "2px solid #333",
+                          paddingBottom: "5px",
+                          marginTop: "0px",
+                        }}
+                      >
+                        {section.header}
+                      </h3>
+
+                      {/* 데이터 테이블 */}
+                      <table
+                        style={{
+                          width: "100%",
+                          borderCollapse: "collapse",
+                          marginTop: "10px",
+                        }}
+                        border="1"
+                      >
+                        <tbody>
+                          {section.attributes
+                            ?.slice()
+                            .sort((a, b) => a.order - b.order)
+                            .map((attr) => (
+                              <tr key={attr.order}>
+                                <td
+                                  style={{
+                                    fontWeight: "bold",
+                                    padding: "8px",
+                                    background: "#f5f5f5",
+                                    width: "200px",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  {attr.name}
+                                </td>
+                                <td
+                                  style={{
+                                    padding: "8px",
+                                    whiteSpace: "pre-line",
+                                  }}
+                                >
+                                  {attr.value}
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ))}
               </td>
             </tr>
             <tr style={{ height: "20px" }}>
