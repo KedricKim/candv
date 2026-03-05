@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../lib/supabase";
 import "./ProductDetailList.css";
 
@@ -48,6 +49,7 @@ const ProductDetailList = () => {
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
+  const navigate = useNavigate();
   return (
     <div className="product-list-container">
       <div className="product-list-header">
@@ -99,7 +101,22 @@ const ProductDetailList = () => {
           ) : (
             products.map((p) => (
               <tr key={p.name}>
-                <td>{p.name}</td>
+                <td>
+                  <span
+                    style={{
+                      color: "#2563eb",
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                    }}
+                    onClick={() =>
+                      navigate(
+                        `/admin/product-detail-edit/${encodeURIComponent(p.name)}`,
+                      )
+                    }
+                  >
+                    {p.name}
+                  </span>
+                </td>
                 <td className="content-cell">{p.content || "-"}</td>
                 <td>
                   {p.main_yn === true ? "Y" : p.main_yn === false ? "N" : "-"}

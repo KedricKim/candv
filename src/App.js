@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import AdminLayout from "./pages/Admin/AdminLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminProductDetail from "./pages/Admin/ProductDetail";
+import ProductDetailEdit from "./pages/Admin/ProductDetail/ProductDetailEdit";
 import AdminRoute from "./pages/Admin/AdminRoute";
 import SEOMetaTag from "./SEOMetaTag";
 
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="product-detail" element={<AdminProductDetail />} />
+            <Route path="product-detail-edit/:name" element={<ProductDetailEdit />} />
           </Route>
         </Route>
       </Route>
