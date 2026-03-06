@@ -55,43 +55,61 @@ const SortableRow = React.memo(function SortableRow({
   } = useSortable({ id });
 
   return (
-    <tr
+    <div
       ref={setNodeRef}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
-        background: isDragging ? "#e6f7ff" : undefined,
       }}
+      className={`
+        flex items-stretch gap-3 rounded-xl border px-3 py-3 mb-3 bg-white
+        ${isDragging ? "shadow-lg border-blue-300 bg-blue-50" : "border-gray-200"}
+      `}
     >
-      <td
-        className="font-bold p-2 bg-[#f5f5f5] w-[40px] border border-black text-center"
-        style={{ cursor: "grab", userSelect: "none" }}
+      {/* drag handle */}
+      <div
+        className="
+          flex items-center justify-center w-11 min-w-11 rounded-lg
+          bg-gray-100 text-gray-500 cursor-grab active:cursor-grabbing
+          border border-gray-200
+        "
+        style={{ userSelect: "none" }}
         {...attributes}
         {...listeners}
       >
         ☰
-      </td>
+      </div>
 
-      <td className="font-bold p-2 bg-[#f5f5f5] w-[200px] whitespace-nowrap border border-black">
+      {/* name */}
+      <div className="w-[220px] min-w-[220px]">
+        <div className="text-xs font-semibold text-gray-500 mb-1">항목명</div>
         <input
-          className="w-full bg-transparent outline-none"
+          className="
+            w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2
+            outline-none focus:border-blue-400 focus:bg-white
+          "
           value={attr.name ?? ""}
           onChange={(e) =>
             updateAttr(sectionIdx, attr.id, { name: e.target.value })
           }
         />
-      </td>
+      </div>
 
-      <td className="p-2 whitespace-pre-line border border-black">
+      {/* value */}
+      <div className="flex-1 min-w-0">
+        <div className="text-xs font-semibold text-gray-500 mb-1">내용</div>
         <textarea
-          className="w-full bg-transparent outline-none resize-y min-h-[40px]"
+          className="
+            w-full min-h-[44px] rounded-lg border border-gray-200 bg-gray-50 px-3 py-2
+            outline-none resize-y focus:border-blue-400 focus:bg-white
+          "
           value={attr.value ?? ""}
           onChange={(e) =>
             updateAttr(sectionIdx, attr.id, { value: e.target.value })
           }
         />
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 });
 
@@ -225,14 +243,17 @@ const ProductDetailEdit = () => {
         <>
           {/* ✅ 제품 내용 - 제품 사양보다 위 */}
           <div className="mb-8">
-            <div className="!flex !items-center mb-2 font-bold">
+            <div className="flex items-center mb-3 font-bold text-[18px] text-gray-800">
               <img src="/icon_arrow_blue.png" alt="arrow" className="mr-2" />
               <span>제품 내용</span>
             </div>
 
-            <div className="border border-black bg-white p-3">
+            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               <textarea
-                className="w-full min-h-[180px] outline-none resize-y"
+                className="
+        w-full min-h-[180px] rounded-xl border border-gray-200 bg-gray-50 px-4 py-3
+        outline-none resize-y focus:border-blue-400 focus:bg-white
+      "
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 placeholder="제품 내용을 입력하세요."
@@ -241,67 +262,57 @@ const ProductDetailEdit = () => {
           </div>
 
           {/* ✅ 제품 사양 */}
-          <table
-            className="w-full border border-black bg-white"
-            style={{ marginTop: 24 }}
-          >
-            <tbody>
-              <tr className="text-left font-bold">
-                <td colSpan="4" className="!flex !items-center mb-2">
-                  <img
-                    src="/icon_arrow_blue.png"
-                    alt="arrow"
-                    className="mr-2"
-                  />
-                  <a>제품 사양 (드래그로 순서 변경)</a>
-                </td>
-              </tr>
+          <div className="mt-8">
+            <div className="flex items-center mb-3 font-bold text-[18px] text-gray-800">
+              <img src="/icon_arrow_blue.png" alt="arrow" className="mr-2" />
+              <span>제품 사양</span>
+            </div>
 
-              <tr className="text-left">
-                <td colSpan="4" className="mb-2">
-                  {editDesc.map((section, sectionIdx) => (
-                    <div
-                      key={`${section.header}-${sectionIdx}`}
-                      style={{ marginBottom: "20px" }}
+            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div className="text-sm text-gray-500 mb-5">
+                드래그하여 순서를 변경하고, 항목명과 내용을 바로 수정할 수
+                있습니다.
+              </div>
+
+              {editDesc.map((section, sectionIdx) => (
+                <div
+                  key={`${section.header}-${sectionIdx}`}
+                  className="mb-8 last:mb-0"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-lg font-bold text-gray-800">
+                      {section.header}
+                    </h3>
+                    <div className="h-[1px] flex-1 bg-gray-200 ml-4" />
+                  </div>
+
+                  <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={(e) => handleAttrDragEnd(e, sectionIdx)}
+                  >
+                    <SortableContext
+                      items={(section.attributes ?? []).map((attr) =>
+                        String(attr.id),
+                      )}
+                      strategy={verticalListSortingStrategy}
                     >
-                      <h3 className="font-bold text-lg pb-[5px] mt-0 border-b-2 border-[#333]">
-                        {section.header}
-                      </h3>
-
-                      <DndContext
-                        sensors={sensors}
-                        collisionDetection={closestCenter}
-                        onDragEnd={(e) => handleAttrDragEnd(e, sectionIdx)}
-                      >
-                        <SortableContext
-                          items={(section.attributes ?? []).map((attr) =>
-                            String(attr.id),
-                          )}
-                          strategy={verticalListSortingStrategy}
-                        >
-                          <table
-                            className="w-full mt-3 !border border-black"
-                            border="1"
-                          >
-                            <tbody>
-                              {(section.attributes ?? []).map((attr) => (
-                                <SortableRow
-                                  key={attr.id}
-                                  attr={attr}
-                                  sectionIdx={sectionIdx}
-                                  updateAttr={updateAttr}
-                                />
-                              ))}
-                            </tbody>
-                          </table>
-                        </SortableContext>
-                      </DndContext>
-                    </div>
-                  ))}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                      <div>
+                        {(section.attributes ?? []).map((attr) => (
+                          <SortableRow
+                            key={attr.id}
+                            attr={attr}
+                            sectionIdx={sectionIdx}
+                            updateAttr={updateAttr}
+                          />
+                        ))}
+                      </div>
+                    </SortableContext>
+                  </DndContext>
+                </div>
+              ))}
+            </div>
+          </div>
         </>
       )}
 
