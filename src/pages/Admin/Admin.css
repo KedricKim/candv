@@ -54,7 +54,12 @@
   font-weight: bold;
   background: #fff;
 }
+.sidebar-footer {
+  padding: 1rem 2rem;
+  border-top: 1px solid #f3f4f6;
+}
 .admin-logout-btn {
+  width: 100%;
   background: #e11d48;
   color: #fff;
   border: none;

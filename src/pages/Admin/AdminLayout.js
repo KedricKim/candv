@@ -4,13 +4,20 @@ import "./Admin.css";
 
 const MENU_LIST = [
   { key: "dashboard", label: "대시보드", path: "/admin" },
-  { key: "productDetail", label: "제품 상세 관리", path: "/admin/product-detail" },
+  {
+    key: "productDetail",
+    label: "제품 상세 관리",
+    path: "/admin/product-detail",
+  },
 ];
 
 const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const selectedMenu = [...MENU_LIST].reverse().find((m) => location.pathname.startsWith(m.path)) || MENU_LIST[0];
+  const selectedMenu =
+    [...MENU_LIST]
+      .reverse()
+      .find((m) => location.pathname.startsWith(m.path)) || MENU_LIST[0];
 
   const handleMenuClick = (menu) => {
     navigate(menu.path);
@@ -36,13 +43,15 @@ const AdminLayout = () => {
             </li>
           ))}
         </ul>
+        <div className="sidebar-footer">
+          <button className="admin-logout-btn" onClick={handleLogout}>
+            로그아웃
+          </button>
+        </div>
       </aside>
       <section className="admin-main">
         <div className="admin-header">
           <span>{selectedMenu.label}</span>
-          <button className="admin-logout-btn" onClick={handleLogout}>
-            로그아웃
-          </button>
         </div>
         <div className="admin-content">
           <Outlet />
