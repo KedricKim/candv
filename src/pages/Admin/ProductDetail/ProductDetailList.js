@@ -148,7 +148,7 @@ const ProductDetailList = () => {
                         <td className="px-4 py-3 text-sm text-gray-700 border-b border-gray-100 align-middle whitespace-nowrap">
                           <button
                             type="button"
-                            className="text-blue-600 font-medium underline underline-offset-2 hover:text-blue-800"
+                            className="text-blue-600 font-medium hover:text-blue-800"
                           >
                             {p.name}
                           </button>
