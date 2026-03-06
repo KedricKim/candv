@@ -16,7 +16,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-// ✅ 정렬/아이디 보정 유틸
+// 정렬/아이디 보정 유틸
 const normalizeDescription = (desc = []) => {
   const sections = [...desc]
     .slice()
@@ -37,11 +37,11 @@ const normalizeDescription = (desc = []) => {
   return sections;
 };
 
-// ✅ 바깥으로 분리
 const SortableRow = React.memo(function SortableRow({
   attr,
   sectionIdx,
   updateAttr,
+  removeAttr,
 }) {
   const id = String(attr.id);
 
@@ -66,7 +66,6 @@ const SortableRow = React.memo(function SortableRow({
         ${isDragging ? "shadow-lg border-blue-300 bg-blue-50" : "border-gray-200"}
       `}
     >
-      {/* drag handle */}
       <div
         className="
           flex items-center justify-center w-11 min-w-11 rounded-lg
@@ -80,7 +79,6 @@ const SortableRow = React.memo(function SortableRow({
         ☰
       </div>
 
-      {/* name */}
       <div className="w-[220px] min-w-[220px]">
         <div className="text-xs font-semibold text-gray-500 mb-1">항목명</div>
         <input
@@ -95,19 +93,32 @@ const SortableRow = React.memo(function SortableRow({
         />
       </div>
 
-      {/* value */}
       <div className="flex-1 min-w-0">
         <div className="text-xs font-semibold text-gray-500 mb-1">내용</div>
-        <textarea
-          className="
-            w-full min-h-[44px] rounded-lg border border-gray-200 bg-gray-50 px-3 py-2
-            outline-none resize-y focus:border-blue-400 focus:bg-white
-          "
-          value={attr.value ?? ""}
-          onChange={(e) =>
-            updateAttr(sectionIdx, attr.id, { value: e.target.value })
-          }
-        />
+        <div className="flex items-start gap-3">
+          <textarea
+            className="
+              flex-1 min-h-[44px] rounded-lg border border-gray-200 bg-gray-50 px-3 py-2
+              outline-none resize-y focus:border-blue-400 focus:bg-white
+            "
+            value={attr.value ?? ""}
+            onChange={(e) =>
+              updateAttr(sectionIdx, attr.id, { value: e.target.value })
+            }
+          />
+
+          <button
+            type="button"
+            onClick={() => removeAttr(sectionIdx, attr.id)}
+            className="
+              h-[44px] px-3 rounded-lg border border-red-200 bg-red-50
+              text-red-600 text-sm font-semibold whitespace-nowrap
+              hover:bg-red-100
+            "
+          >
+            삭제
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -116,8 +127,9 @@ const SortableRow = React.memo(function SortableRow({
 const ProductDetailEdit = () => {
   const { name } = useParams();
   const [data, setData] = useState();
-  const [editContent, setEditContent] = useState(""); // ✅ 제품 내용
-  const [editDesc, setEditDesc] = useState([]); // ✅ 제품 사양
+  const [editContent, setEditContent] = useState("");
+  const [editDesc, setEditDesc] = useState([]);
+  const [collapsedSections, setCollapsedSections] = useState({});
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -136,9 +148,17 @@ const ProductDetailEdit = () => {
       if (error) {
         setError("데이터 가져오기 오류: " + error.message);
       } else {
+        const normalizedDesc = normalizeDescription(product?.description || []);
         setData(product);
         setEditContent(product?.content ?? "");
-        setEditDesc(normalizeDescription(product?.description || []));
+        setEditDesc(normalizedDesc);
+
+        // 기본은 모두 펼침
+        const initialCollapsed = {};
+        normalizedDesc.forEach((_, idx) => {
+          initialCollapsed[idx] = false;
+        });
+        setCollapsedSections(initialCollapsed);
       }
 
       setLoading(false);
@@ -150,6 +170,21 @@ const ProductDetailEdit = () => {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
   );
+
+  const toggleSection = (sectionIdx) => {
+    setCollapsedSections((prev) => ({
+      ...prev,
+      [sectionIdx]: !prev[sectionIdx],
+    }));
+  };
+
+  const updateSectionHeader = (sectionIdx, value) => {
+    setEditDesc((prev) =>
+      prev.map((section, idx) =>
+        idx === sectionIdx ? { ...section, header: value } : section,
+      ),
+    );
+  };
 
   const handleAttrDragEnd = (event, sectionIdx) => {
     const { active, over } = event;
@@ -190,12 +225,59 @@ const ProductDetailEdit = () => {
     );
   };
 
+  const addAttr = (sectionIdx) => {
+    setEditDesc((prev) =>
+      prev.map((section, sIdx) => {
+        if (sIdx !== sectionIdx) return section;
+
+        const attrs = section.attributes ?? [];
+        const maxId = attrs.reduce((max, attr) => {
+          const num = Number(attr.id);
+          return Number.isNaN(num) ? max : Math.max(max, num);
+        }, 0);
+
+        const newAttr = {
+          id: maxId + 1,
+          name: "",
+          value: "",
+          order: attrs.length + 1,
+        };
+
+        return {
+          ...section,
+          attributes: [...attrs, newAttr],
+        };
+      }),
+    );
+
+    setCollapsedSections((prev) => ({
+      ...prev,
+      [sectionIdx]: false,
+    }));
+  };
+
+  const removeAttr = (sectionIdx, attrId) => {
+    setEditDesc((prev) =>
+      prev.map((section, sIdx) => {
+        if (sIdx !== sectionIdx) return section;
+
+        return {
+          ...section,
+          attributes: (section.attributes ?? []).filter(
+            (attr) => String(attr.id) !== String(attrId),
+          ),
+        };
+      }),
+    );
+  };
+
   const handleSave = async () => {
     setSaving(true);
     setError("");
 
-    const newDesc = editDesc.map((section) => ({
+    const newDesc = editDesc.map((section, sectionIdx) => ({
       ...section,
+      order: section.order ?? sectionIdx + 1,
       attributes: (section.attributes ?? []).map((attr, idx) => ({
         ...attr,
         order: idx + 1,
@@ -205,8 +287,8 @@ const ProductDetailEdit = () => {
     const { error: updateError } = await supabase
       .from("product")
       .update({
-        content: editContent, // ✅ 제품 내용 저장
-        description: newDesc, // ✅ 제품 사양 저장
+        content: editContent,
+        description: newDesc,
       })
       .eq("name", name);
 
@@ -231,17 +313,16 @@ const ProductDetailEdit = () => {
       style={{
         maxWidth: 900,
         margin: "0 auto",
-        paddingBottom: "100px", // ✅ 플로팅 버튼에 가리지 않도록 여백
+        paddingBottom: "100px",
       }}
     >
       <h2 className="font-bold text-xl mb-4">제품명: {name}</h2>
-      {error && <div className="error-msg mb-4">{error}</div>}
+      {error && <div className="error-msg mb-4 text-red-600">{error}</div>}
 
       {loading ? (
         <div>로딩중...</div>
       ) : (
         <>
-          {/* ✅ 제품 내용 - 제품 사양보다 위 */}
           <div className="mb-8">
             <div className="flex items-center mb-3 font-bold text-[18px] text-gray-800">
               <img src="/icon_arrow_blue.png" alt="arrow" className="mr-2" />
@@ -251,9 +332,9 @@ const ProductDetailEdit = () => {
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               <textarea
                 className="
-        w-full min-h-[180px] rounded-xl border border-gray-200 bg-gray-50 px-4 py-3
-        outline-none resize-y focus:border-blue-400 focus:bg-white
-      "
+                  w-full min-h-[180px] rounded-xl border border-gray-200 bg-gray-50 px-4 py-3
+                  outline-none resize-y focus:border-blue-400 focus:bg-white
+                "
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 placeholder="제품 내용을 입력하세요."
@@ -261,7 +342,6 @@ const ProductDetailEdit = () => {
             </div>
           </div>
 
-          {/* ✅ 제품 사양 */}
           <div className="mt-8">
             <div className="flex items-center mb-3 font-bold text-[18px] text-gray-800">
               <img src="/icon_arrow_blue.png" alt="arrow" className="mr-2" />
@@ -270,53 +350,94 @@ const ProductDetailEdit = () => {
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               <div className="text-sm text-gray-500 mb-5">
-                드래그하여 순서를 변경하고, 항목명과 내용을 바로 수정할 수
-                있습니다.
+                드래그하여 순서를 변경하고, 항목을 수정/추가/삭제할 수 있습니다.
               </div>
 
-              {editDesc.map((section, sectionIdx) => (
-                <div
-                  key={`${section.header}-${sectionIdx}`}
-                  className="mb-8 last:mb-0"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-lg font-bold text-gray-800">
-                      {section.header}
-                    </h3>
-                    <div className="h-[1px] flex-1 bg-gray-200 ml-4" />
-                  </div>
+              {editDesc.map((section, sectionIdx) => {
+                const isCollapsed = collapsedSections[sectionIdx];
 
-                  <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    onDragEnd={(e) => handleAttrDragEnd(e, sectionIdx)}
+                return (
+                  <div
+                    key={`${section.header}-${sectionIdx}`}
+                    className="mb-5 last:mb-0 rounded-2xl border border-gray-200 bg-gray-50/60 overflow-hidden"
                   >
-                    <SortableContext
-                      items={(section.attributes ?? []).map((attr) =>
-                        String(attr.id),
-                      )}
-                      strategy={verticalListSortingStrategy}
-                    >
-                      <div>
-                        {(section.attributes ?? []).map((attr) => (
-                          <SortableRow
-                            key={attr.id}
-                            attr={attr}
-                            sectionIdx={sectionIdx}
-                            updateAttr={updateAttr}
-                          />
-                        ))}
+                    {/* section header */}
+                    <div className="flex items-center gap-3 px-4 py-4 bg-white border-b border-gray-200">
+                      <input
+                        className="
+                          flex-1 text-lg font-bold text-gray-800 bg-transparent
+                          outline-none border border-transparent rounded-lg px-2 py-1
+                          focus:border-blue-300 focus:bg-blue-50
+                        "
+                        value={section.header ?? ""}
+                        onChange={(e) =>
+                          updateSectionHeader(sectionIdx, e.target.value)
+                        }
+                        placeholder="섹션 제목"
+                      />
+
+                      <button
+                        type="button"
+                        onClick={() => toggleSection(sectionIdx)}
+                        className="
+                          min-w-[88px] h-[40px] px-3 rounded-lg border border-gray-200
+                          bg-gray-50 text-sm font-semibold text-gray-700 hover:bg-gray-100
+                        "
+                      >
+                        {isCollapsed ? "펼치기" : "접기"}
+                      </button>
+                    </div>
+
+                    {/* section body */}
+                    {!isCollapsed && (
+                      <div className="p-4">
+                        <DndContext
+                          sensors={sensors}
+                          collisionDetection={closestCenter}
+                          onDragEnd={(e) => handleAttrDragEnd(e, sectionIdx)}
+                        >
+                          <SortableContext
+                            items={(section.attributes ?? []).map((attr) =>
+                              String(attr.id),
+                            )}
+                            strategy={verticalListSortingStrategy}
+                          >
+                            <div>
+                              {(section.attributes ?? []).map((attr) => (
+                                <SortableRow
+                                  key={attr.id}
+                                  attr={attr}
+                                  sectionIdx={sectionIdx}
+                                  updateAttr={updateAttr}
+                                  removeAttr={removeAttr}
+                                />
+                              ))}
+                            </div>
+                          </SortableContext>
+                        </DndContext>
+
+                        <div className="mt-3">
+                          <button
+                            type="button"
+                            onClick={() => addAttr(sectionIdx)}
+                            className="
+                              px-4 py-2 rounded-lg border border-blue-200 bg-blue-50
+                              text-blue-700 text-sm font-semibold hover:bg-blue-100
+                            "
+                          >
+                            + 항목 추가
+                          </button>
+                        </div>
                       </div>
-                    </SortableContext>
-                  </DndContext>
-                </div>
-              ))}
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </>
       )}
 
-      {/* ✅ 우측 하단 플로팅 저장 버튼 */}
       {!loading && (
         <button
           className="save-btn"
