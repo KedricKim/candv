@@ -2,50 +2,81 @@ import React, { useRef } from "react";
 import "./Estimate.css";
 import emailjs from "@emailjs/browser";
 import MetaTag from "../SEOMetaTag";
+import { supabase } from "../lib/supabase";
 
 const Estimate = () => {
   const form = useRef();
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
 
-    let name = form.current.from_name.value.replaceAll(" ", "");
-    let phone = form.current.phone.value.replaceAll(" ", "");
-    let email = form.current.email.value.replaceAll(" ", "");
-    let message = form.current.message.value.replaceAll(" ", "");
+    const name = form.current.from_name.value.replaceAll(" ", "");
+    const phone = form.current.phone.value.replaceAll(" ", "");
+    const email = form.current.email.value.replaceAll(" ", "");
+    const message = form.current.message.value.replaceAll(" ", "");
 
     if (name.length < 1) {
       alert("담당자명을 입력해주세요.");
       form.current.from_name.focus();
-    } else if (phone.length < 1) {
+      return;
+    }
+
+    if (phone.length < 1) {
       alert("전화번호를 입력해주세요.");
       form.current.phone.focus();
-    } else if (email.length < 1) {
+      return;
+    }
+
+    if (email.length < 1) {
       alert("이메일을 입력해주세요.");
       form.current.email.focus();
-    } else if (message.length < 1) {
+      return;
+    }
+
+    if (message.length < 1) {
       alert("문의 내용을 입력해주세요.");
       form.current.message.focus();
-    } else {
-      emailjs
-        .sendForm(
-          "service_574i0y8",
-          "template_022h1ek",
-          form.current,
-          "7JOEcnt5thCGv_WUp"
-        )
-        .then(
-          (result) => {
-            alert(
-              "문의주신 내용이 접수되었습니다. 빠른시일 내에 연락드리도록 하겠습니다."
-            );
-            document.getElementById("reset").click();
-          },
-          (error) => {
-            alert("문의 접수에 실패하였습니다.");
-            console.log(error.text);
-          }
+      return;
+    }
+
+    try {
+      // 1. 메일 전송
+      await emailjs.sendForm(
+        "service_574i0y8",
+        "template_022h1ek",
+        form.current,
+        "7JOEcnt5thCGv_WUp",
+      );
+
+      // 2. supabase 저장
+      const payload = {
+        name: form.current.from_name.value?.trim() || null,
+        company: form.current.brand?.value?.trim() || null,
+        phone: form.current.phone.value?.trim() || null,
+        email: form.current.email.value?.trim() || null,
+        product: form.current.product?.value?.trim() || null,
+        type: form.current.type?.value?.trim() || null,
+        res: form.current.res?.value?.trim() || null,
+        message: form.current.message.value?.trim() || null,
+      };
+
+      const { error } = await supabase.from("estimate").insert([payload]);
+
+      if (error) {
+        console.error("Supabase 저장 실패:", error);
+        alert(
+          "메일은 정상 접수되었지만, 문의 내역 저장에 실패했습니다. 관리자에게 문의해주세요.",
         );
+        return;
+      }
+
+      alert(
+        "문의주신 내용이 접수되었습니다. 빠른시일 내에 연락드리도록 하겠습니다.",
+      );
+      document.getElementById("reset").click();
+    } catch (error) {
+      alert("문의 접수에 실패하였습니다.");
+      console.error(error);
     }
   };
 
@@ -252,6 +283,7 @@ const Estimate = () => {
                               type="submit"
                               value="견적문의"
                               className="px-2"
+                              style={{ cursor: "pointer" }}
                             />
                             &nbsp;&nbsp;
                             <input
@@ -260,6 +292,7 @@ const Estimate = () => {
                               name="reset"
                               value="다시쓰기"
                               className="px-2"
+                              style={{ cursor: "pointer" }}
                             />
                           </td>
                         </tr>
