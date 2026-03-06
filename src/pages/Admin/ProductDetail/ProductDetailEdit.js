@@ -16,6 +16,10 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+// section용 안정적인 로컬 id 생성
+const makeSectionLocalId = (section, idx) =>
+  `section-${idx}-${section.order ?? idx + 1}`;
+
 // 정렬/아이디 보정 유틸
 const normalizeDescription = (desc = []) => {
   const sections = [...desc]
@@ -31,7 +35,11 @@ const normalizeDescription = (desc = []) => {
             attr.id ?? `${section.header ?? sIdx}-${attr.name ?? aIdx}-${aIdx}`,
         }));
 
-      return { ...section, attributes: attrs };
+      return {
+        ...section,
+        _sectionId: section._sectionId ?? makeSectionLocalId(section, sIdx),
+        attributes: attrs,
+      };
     });
 
   return sections;
@@ -124,6 +132,124 @@ const SortableRow = React.memo(function SortableRow({
   );
 });
 
+const SortableSection = React.memo(function SortableSection({
+  section,
+  sectionIdx,
+  isCollapsed,
+  toggleSection,
+  updateSectionHeader,
+  addAttr,
+  sensors,
+  handleAttrDragEnd,
+  updateAttr,
+  removeAttr,
+}) {
+  const sectionId = String(section._sectionId);
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: sectionId });
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+      }}
+      className={`
+        mb-5 last:mb-0 rounded-2xl border bg-gray-50/60 overflow-hidden
+        ${isDragging ? "border-blue-300 shadow-lg" : "border-gray-200"}
+      `}
+    >
+      {/* section header */}
+      <div className="flex items-center gap-3 px-4 py-4 bg-white border-b border-gray-200">
+        {/* section drag handle */}
+        <div
+          className="
+            flex items-center justify-center w-10 h-10 rounded-lg
+            bg-gray-100 text-gray-500 cursor-grab active:cursor-grabbing
+            border border-gray-200 shrink-0
+          "
+          style={{ userSelect: "none" }}
+          {...attributes}
+          {...listeners}
+        >
+          ☰
+        </div>
+
+        <input
+          className="
+            flex-1 text-lg font-bold text-gray-800 bg-transparent
+            outline-none border border-transparent rounded-lg px-2 py-1
+            focus:border-blue-300 focus:bg-blue-50
+          "
+          value={section.header ?? ""}
+          onChange={(e) => updateSectionHeader(sectionIdx, e.target.value)}
+          placeholder="섹션 제목"
+        />
+
+        <button
+          type="button"
+          onClick={() => toggleSection(sectionIdx)}
+          className="
+            min-w-[88px] h-[40px] px-3 rounded-lg border border-gray-200
+            bg-gray-50 text-sm font-semibold text-gray-700 hover:bg-gray-100
+          "
+        >
+          {isCollapsed ? "펼치기" : "접기"}
+        </button>
+      </div>
+
+      {/* section body */}
+      {!isCollapsed && (
+        <div className="p-4">
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={(e) => handleAttrDragEnd(e, sectionIdx)}
+          >
+            <SortableContext
+              items={(section.attributes ?? []).map((attr) => String(attr.id))}
+              strategy={verticalListSortingStrategy}
+            >
+              <div>
+                {(section.attributes ?? []).map((attr) => (
+                  <SortableRow
+                    key={attr.id}
+                    attr={attr}
+                    sectionIdx={sectionIdx}
+                    updateAttr={updateAttr}
+                    removeAttr={removeAttr}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+
+          <div className="mt-3">
+            <button
+              type="button"
+              onClick={() => addAttr(sectionIdx)}
+              className="
+                px-4 py-2 rounded-lg border border-blue-200 bg-blue-50
+                text-blue-700 text-sm font-semibold hover:bg-blue-100
+              "
+            >
+              + 항목 추가
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+});
+
 const ProductDetailEdit = () => {
   const { name } = useParams();
   const [data, setData] = useState();
@@ -153,10 +279,9 @@ const ProductDetailEdit = () => {
         setEditContent(product?.content ?? "");
         setEditDesc(normalizedDesc);
 
-        // 기본은 모두 펼침
         const initialCollapsed = {};
-        normalizedDesc.forEach((_, idx) => {
-          initialCollapsed[idx] = false;
+        normalizedDesc.forEach((section) => {
+          initialCollapsed[section._sectionId] = false;
         });
         setCollapsedSections(initialCollapsed);
       }
@@ -172,9 +297,12 @@ const ProductDetailEdit = () => {
   );
 
   const toggleSection = (sectionIdx) => {
+    const sectionId = editDesc[sectionIdx]?._sectionId;
+    if (!sectionId) return;
+
     setCollapsedSections((prev) => ({
       ...prev,
-      [sectionIdx]: !prev[sectionIdx],
+      [sectionId]: !prev[sectionId],
     }));
   };
 
@@ -184,6 +312,24 @@ const ProductDetailEdit = () => {
         idx === sectionIdx ? { ...section, header: value } : section,
       ),
     );
+  };
+
+  // ✅ section 자체 DnD
+  const handleSectionDragEnd = (event) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    setEditDesc((prev) => {
+      const oldIdx = prev.findIndex(
+        (section) => String(section._sectionId) === String(active.id),
+      );
+      const newIdx = prev.findIndex(
+        (section) => String(section._sectionId) === String(over.id),
+      );
+
+      if (oldIdx < 0 || newIdx < 0) return prev;
+      return arrayMove(prev, oldIdx, newIdx);
+    });
   };
 
   const handleAttrDragEnd = (event, sectionIdx) => {
@@ -250,10 +396,13 @@ const ProductDetailEdit = () => {
       }),
     );
 
-    setCollapsedSections((prev) => ({
-      ...prev,
-      [sectionIdx]: false,
-    }));
+    const sectionId = editDesc[sectionIdx]?._sectionId;
+    if (sectionId) {
+      setCollapsedSections((prev) => ({
+        ...prev,
+        [sectionId]: false,
+      }));
+    }
   };
 
   const removeAttr = (sectionIdx, attrId) => {
@@ -276,11 +425,13 @@ const ProductDetailEdit = () => {
     setError("");
 
     const newDesc = editDesc.map((section, sectionIdx) => ({
-      ...section,
-      order: section.order ?? sectionIdx + 1,
+      header: section.header,
+      order: sectionIdx + 1, // ✅ section order 저장
       attributes: (section.attributes ?? []).map((attr, idx) => ({
-        ...attr,
-        order: idx + 1,
+        id: attr.id,
+        name: attr.name,
+        value: attr.value,
+        order: idx + 1, // ✅ attr order 저장
       })),
     }));
 
@@ -300,8 +451,16 @@ const ProductDetailEdit = () => {
         content: editContent,
         description: newDesc,
       };
+      const normalizedDesc = normalizeDescription(newDesc);
       setData(updatedData);
-      setEditDesc(normalizeDescription(newDesc));
+      setEditDesc(normalizedDesc);
+
+      const nextCollapsed = {};
+      normalizedDesc.forEach((section) => {
+        nextCollapsed[section._sectionId] =
+          collapsedSections[section._sectionId] ?? false;
+      });
+      setCollapsedSections(nextCollapsed);
     }
 
     setSaving(false);
@@ -350,89 +509,43 @@ const ProductDetailEdit = () => {
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               <div className="text-sm text-gray-500 mb-5">
-                드래그하여 순서를 변경하고, 항목을 수정/추가/삭제할 수 있습니다.
+                섹션과 항목 모두 드래그하여 순서를 변경하고, 수정/추가/삭제할 수
+                있습니다.
               </div>
 
-              {editDesc.map((section, sectionIdx) => {
-                const isCollapsed = collapsedSections[sectionIdx];
+              {/* ✅ section DnD */}
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleSectionDragEnd}
+              >
+                <SortableContext
+                  items={editDesc.map((section) => String(section._sectionId))}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <div>
+                    {editDesc.map((section, sectionIdx) => {
+                      const isCollapsed = collapsedSections[section._sectionId];
 
-                return (
-                  <div
-                    key={`${section.header}-${sectionIdx}`}
-                    className="mb-5 last:mb-0 rounded-2xl border border-gray-200 bg-gray-50/60 overflow-hidden"
-                  >
-                    {/* section header */}
-                    <div className="flex items-center gap-3 px-4 py-4 bg-white border-b border-gray-200">
-                      <input
-                        className="
-                          flex-1 text-lg font-bold text-gray-800 bg-transparent
-                          outline-none border border-transparent rounded-lg px-2 py-1
-                          focus:border-blue-300 focus:bg-blue-50
-                        "
-                        value={section.header ?? ""}
-                        onChange={(e) =>
-                          updateSectionHeader(sectionIdx, e.target.value)
-                        }
-                        placeholder="섹션 제목"
-                      />
-
-                      <button
-                        type="button"
-                        onClick={() => toggleSection(sectionIdx)}
-                        className="
-                          min-w-[88px] h-[40px] px-3 rounded-lg border border-gray-200
-                          bg-gray-50 text-sm font-semibold text-gray-700 hover:bg-gray-100
-                        "
-                      >
-                        {isCollapsed ? "펼치기" : "접기"}
-                      </button>
-                    </div>
-
-                    {/* section body */}
-                    {!isCollapsed && (
-                      <div className="p-4">
-                        <DndContext
+                      return (
+                        <SortableSection
+                          key={section._sectionId}
+                          section={section}
+                          sectionIdx={sectionIdx}
+                          isCollapsed={isCollapsed}
+                          toggleSection={toggleSection}
+                          updateSectionHeader={updateSectionHeader}
+                          addAttr={addAttr}
                           sensors={sensors}
-                          collisionDetection={closestCenter}
-                          onDragEnd={(e) => handleAttrDragEnd(e, sectionIdx)}
-                        >
-                          <SortableContext
-                            items={(section.attributes ?? []).map((attr) =>
-                              String(attr.id),
-                            )}
-                            strategy={verticalListSortingStrategy}
-                          >
-                            <div>
-                              {(section.attributes ?? []).map((attr) => (
-                                <SortableRow
-                                  key={attr.id}
-                                  attr={attr}
-                                  sectionIdx={sectionIdx}
-                                  updateAttr={updateAttr}
-                                  removeAttr={removeAttr}
-                                />
-                              ))}
-                            </div>
-                          </SortableContext>
-                        </DndContext>
-
-                        <div className="mt-3">
-                          <button
-                            type="button"
-                            onClick={() => addAttr(sectionIdx)}
-                            className="
-                              px-4 py-2 rounded-lg border border-blue-200 bg-blue-50
-                              text-blue-700 text-sm font-semibold hover:bg-blue-100
-                            "
-                          >
-                            + 항목 추가
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                          handleAttrDragEnd={handleAttrDragEnd}
+                          updateAttr={updateAttr}
+                          removeAttr={removeAttr}
+                        />
+                      );
+                    })}
                   </div>
-                );
-              })}
+                </SortableContext>
+              </DndContext>
             </div>
           </div>
         </>
