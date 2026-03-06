@@ -37,7 +37,7 @@ const normalizeDescription = (desc = []) => {
   return sections;
 };
 
-// ✅ 컴포넌트 바깥으로 분리
+// ✅ 바깥으로 분리
 const SortableRow = React.memo(function SortableRow({
   attr,
   sectionIdx,
@@ -98,7 +98,8 @@ const SortableRow = React.memo(function SortableRow({
 const ProductDetailEdit = () => {
   const { name } = useParams();
   const [data, setData] = useState();
-  const [editDesc, setEditDesc] = useState([]);
+  const [editContent, setEditContent] = useState(""); // ✅ 제품 내용
+  const [editDesc, setEditDesc] = useState([]); // ✅ 제품 사양
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -118,6 +119,7 @@ const ProductDetailEdit = () => {
         setError("데이터 가져오기 오류: " + error.message);
       } else {
         setData(product);
+        setEditContent(product?.content ?? "");
         setEditDesc(normalizeDescription(product?.description || []));
       }
 
@@ -172,6 +174,7 @@ const ProductDetailEdit = () => {
 
   const handleSave = async () => {
     setSaving(true);
+    setError("");
 
     const newDesc = editDesc.map((section) => ({
       ...section,
@@ -181,17 +184,23 @@ const ProductDetailEdit = () => {
       })),
     }));
 
-    console.log("newDesc", newDesc);
-
     const { error: updateError } = await supabase
       .from("product")
-      .update({ description: newDesc })
+      .update({
+        content: editContent, // ✅ 제품 내용 저장
+        description: newDesc, // ✅ 제품 사양 저장
+      })
       .eq("name", name);
 
     if (updateError) {
       setError("저장 실패: " + updateError.message);
     } else {
-      setData((prev) => ({ ...prev, description: newDesc }));
+      const updatedData = {
+        ...data,
+        content: editContent,
+        description: newDesc,
+      };
+      setData(updatedData);
       setEditDesc(normalizeDescription(newDesc));
     }
 
@@ -201,15 +210,37 @@ const ProductDetailEdit = () => {
   return (
     <div
       className="product-detail-edit-container"
-      style={{ maxWidth: 900, margin: "0 auto" }}
+      style={{
+        maxWidth: 900,
+        margin: "0 auto",
+        paddingBottom: "100px", // ✅ 플로팅 버튼에 가리지 않도록 여백
+      }}
     >
       <h2 className="font-bold text-xl mb-4">제품명: {name}</h2>
-      {error && <div className="error-msg">{error}</div>}
+      {error && <div className="error-msg mb-4">{error}</div>}
 
       {loading ? (
         <div>로딩중...</div>
       ) : (
         <>
+          {/* ✅ 제품 내용 - 제품 사양보다 위 */}
+          <div className="mb-8">
+            <div className="!flex !items-center mb-2 font-bold">
+              <img src="/icon_arrow_blue.png" alt="arrow" className="mr-2" />
+              <span>제품 내용</span>
+            </div>
+
+            <div className="border border-black bg-white p-3">
+              <textarea
+                className="w-full min-h-[180px] outline-none resize-y"
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                placeholder="제품 내용을 입력하세요."
+              />
+            </div>
+          </div>
+
+          {/* ✅ 제품 사양 */}
           <table
             className="w-full border border-black bg-white"
             style={{ marginTop: 24 }}
@@ -230,7 +261,7 @@ const ProductDetailEdit = () => {
                 <td colSpan="4" className="mb-2">
                   {editDesc.map((section, sectionIdx) => (
                     <div
-                      key={section.order ?? sectionIdx}
+                      key={`${section.header}-${sectionIdx}`}
                       style={{ marginBottom: "20px" }}
                     >
                       <h3 className="font-bold text-lg pb-[5px] mt-0 border-b-2 border-[#333]">
@@ -271,18 +302,35 @@ const ProductDetailEdit = () => {
               </tr>
             </tbody>
           </table>
-
-          <div style={{ textAlign: "center", marginTop: 24 }}>
-            <button
-              className="save-btn"
-              onClick={handleSave}
-              disabled={saving}
-              style={{ minWidth: 120, fontWeight: 600 }}
-            >
-              {saving ? "저장중..." : "순서 저장"}
-            </button>
-          </div>
         </>
+      )}
+
+      {/* ✅ 우측 하단 플로팅 저장 버튼 */}
+      {!loading && (
+        <button
+          className="save-btn"
+          onClick={handleSave}
+          disabled={saving}
+          style={{
+            position: "fixed",
+            right: "32px",
+            bottom: "32px",
+            minWidth: "140px",
+            height: "52px",
+            fontWeight: 700,
+            borderRadius: "9999px",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
+            zIndex: 1000,
+            padding: "0 20px",
+            backgroundColor: "#2563eb",
+            color: "#fff",
+            border: "none",
+            cursor: saving ? "not-allowed" : "pointer",
+            opacity: saving ? 0.7 : 1,
+          }}
+        >
+          {saving ? "저장중..." : "저장"}
+        </button>
       )}
     </div>
   );
