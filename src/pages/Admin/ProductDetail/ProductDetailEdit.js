@@ -17,8 +17,8 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 
 // section용 안정적인 로컬 id 생성
-const makeSectionLocalId = (section, idx) =>
-  `section-${idx}-${section.order ?? idx + 1}`;
+const makeSectionLocalId = () =>
+  `section-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
 // 정렬/아이디 보정 유틸
 const normalizeDescription = (desc = []) => {
@@ -37,7 +37,7 @@ const normalizeDescription = (desc = []) => {
 
       return {
         ...section,
-        _sectionId: section._sectionId ?? makeSectionLocalId(section, sIdx),
+        _sectionId: section._sectionId ?? makeSectionLocalId(),
         attributes: attrs,
       };
     });
@@ -138,6 +138,7 @@ const SortableSection = React.memo(function SortableSection({
   isCollapsed,
   toggleSection,
   updateSectionHeader,
+  removeSection,
   addAttr,
   sensors,
   handleAttrDragEnd,
@@ -167,9 +168,7 @@ const SortableSection = React.memo(function SortableSection({
         ${isDragging ? "border-blue-300 shadow-lg" : "border-gray-200"}
       `}
     >
-      {/* section header */}
       <div className="flex items-center gap-3 px-4 py-4 bg-white border-b border-gray-200">
-        {/* section drag handle */}
         <div
           className="
             flex items-center justify-center w-10 h-10 rounded-lg
@@ -204,9 +203,19 @@ const SortableSection = React.memo(function SortableSection({
         >
           {isCollapsed ? "펼치기" : "접기"}
         </button>
+
+        <button
+          type="button"
+          onClick={() => removeSection(sectionIdx)}
+          className="
+            h-[40px] px-3 rounded-lg border border-red-200 bg-red-50
+            text-red-600 text-sm font-semibold hover:bg-red-100
+          "
+        >
+          섹션 삭제
+        </button>
       </div>
 
-      {/* section body */}
       {!isCollapsed && (
         <div className="p-4">
           <DndContext
@@ -277,7 +286,7 @@ const ProductDetailEdit = () => {
         const normalizedDesc = normalizeDescription(product?.description || []);
         setData(product);
         setEditContent(product?.content ?? "");
-        setEditDesc(normalizedDesc);
+        setEditDesc(normalizeDescription(product?.description || []));
 
         const initialCollapsed = {};
         normalizedDesc.forEach((section) => {
@@ -314,7 +323,6 @@ const ProductDetailEdit = () => {
     );
   };
 
-  // ✅ section 자체 DnD
   const handleSectionDragEnd = (event) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
@@ -420,18 +428,48 @@ const ProductDetailEdit = () => {
     );
   };
 
+  // ✅ 섹션 추가
+  const addSection = () => {
+    const newSection = {
+      _sectionId: makeSectionLocalId(),
+      header: "",
+      order: editDesc.length + 1,
+      attributes: [],
+    };
+
+    setEditDesc((prev) => [...prev, newSection]);
+    setCollapsedSections((prev) => ({
+      ...prev,
+      [newSection._sectionId]: false,
+    }));
+  };
+
+  // ✅ 섹션 삭제
+  const removeSection = (sectionIdx) => {
+    const targetSection = editDesc[sectionIdx];
+    if (!targetSection) return;
+
+    setEditDesc((prev) => prev.filter((_, idx) => idx !== sectionIdx));
+
+    setCollapsedSections((prev) => {
+      const next = { ...prev };
+      delete next[targetSection._sectionId];
+      return next;
+    });
+  };
+
   const handleSave = async () => {
     setSaving(true);
     setError("");
 
     const newDesc = editDesc.map((section, sectionIdx) => ({
       header: section.header,
-      order: sectionIdx + 1, // ✅ section order 저장
+      order: sectionIdx + 1,
       attributes: (section.attributes ?? []).map((attr, idx) => ({
         id: attr.id,
         name: attr.name,
         value: attr.value,
-        order: idx + 1, // ✅ attr order 저장
+        order: idx + 1,
       })),
     }));
 
@@ -513,7 +551,6 @@ const ProductDetailEdit = () => {
                 있습니다.
               </div>
 
-              {/* ✅ section DnD */}
               <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
@@ -535,6 +572,7 @@ const ProductDetailEdit = () => {
                           isCollapsed={isCollapsed}
                           toggleSection={toggleSection}
                           updateSectionHeader={updateSectionHeader}
+                          removeSection={removeSection}
                           addAttr={addAttr}
                           sensors={sensors}
                           handleAttrDragEnd={handleAttrDragEnd}
@@ -546,6 +584,19 @@ const ProductDetailEdit = () => {
                   </div>
                 </SortableContext>
               </DndContext>
+
+              <div className="mt-4">
+                <button
+                  type="button"
+                  onClick={addSection}
+                  className="
+                    px-4 py-2 rounded-lg border border-blue-200 bg-blue-50
+                    text-blue-700 text-sm font-semibold hover:bg-blue-100
+                  "
+                >
+                  + 섹션 추가
+                </button>
+              </div>
             </div>
           </div>
         </>
